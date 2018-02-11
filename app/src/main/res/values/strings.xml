@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GroupApp</string>
+    <string name="title_activity_todo">TodoActivity</string>
+</resources>
