@@ -1,5 +1,6 @@
 package com.youdo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,8 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 
 public class AddtaskActivity extends AppCompatActivity {
-    private FirebaseDatabase database; //referes to firebase database
-    private DatabaseReference myRef; //Reference to the database
+    private DatabaseHelper database; //referes to database
     EditText editTask;
 
     @Override
@@ -20,7 +20,7 @@ public class AddtaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtask);
         //Gets reference to the database
-        database = FirebaseDatabase.getInstance();
+        database = new DatabaseHelper(this);
     }
     //When add task buttion is clicked
     public void addButtonClicked(View view) {
@@ -40,14 +40,11 @@ public class AddtaskActivity extends AppCompatActivity {
         //transforms the system time taken into the fate format
         String dateString = sdf.format(date);
 
-        //Reference to the database holding the to do tasks
-        myRef = database.getInstance().getReference().child("Todos");
+        Todo newTask = new Todo(name,dateString);
 
-        //Sets up push function to push task to database
-        DatabaseReference newTodo = myRef.push();
-        //Sets values for the to do task
-        newTodo.child("name").setValue(name);
-        newTodo.child("time").setValue(dateString);
+        database.addToDo(newTask);
 
+        Intent TaskList = new Intent( AddtaskActivity.this, TodoActivity.class);
+        startActivity(TaskList);
     }
 }
