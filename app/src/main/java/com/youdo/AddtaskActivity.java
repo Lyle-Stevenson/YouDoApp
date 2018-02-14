@@ -35,15 +35,17 @@ public class AddtaskActivity extends AppCompatActivity {
         long date = System.currentTimeMillis();
 
         //Sets up a date format YYYY MM DD
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM MM dd, yyy h :mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyy h:mm a");
 
         //transforms the system time taken into the fate format
         String dateString = sdf.format(date);
 
+        //Puts new task data into a to do object
         Todo newTask = new Todo(name,dateString);
 
-        database.addToDo(newTask);
+        database.addToDo(newTask);// Adds task to database
 
+        //Switches back to the to do activity
         Intent TaskList = new Intent( AddtaskActivity.this, TodoActivity.class);
         startActivity(TaskList);
     }

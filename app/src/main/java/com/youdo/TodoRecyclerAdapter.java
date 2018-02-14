@@ -12,27 +12,27 @@ import java.util.ArrayList;
 
 /**
  * Created by Lyle on 12/02/2018.
+ * Recycler adapter connects the task data to the recycler view
  */
 
 public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHolder> {
 
-    private ArrayList<Todo> listTasks;
-    private Context mContext;
-    private ArrayList<Todo> mFilteredList;
+    private ArrayList<Todo> listTasks;  //List of tasks to be displayed
+    private Context mContext; //Connect of which activity the data is to be displayed on
 
-
+    //Construcor
     public TodoRecyclerAdapter(ArrayList<Todo> listTasks, Context mContext) {
         this.listTasks = listTasks;
         this.mContext = mContext;
-
-
     }
 
+    //View holder class which hold where the data is to be displayed
     public class TodoViewHolder extends RecyclerView.ViewHolder {
 
         TextView todo_name;
         TextView todo_date;
 
+        //Constructor to hold the view elements
         public TodoViewHolder(View view) {
             super(view);
             todo_name = (TextView) itemView.findViewById(R.id.todoName);
@@ -52,9 +52,8 @@ public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapte
 
     @Override
     public void onBindViewHolder(final TodoViewHolder holder, int position) {
-        Log.d("List", listTasks.get(position).toString());
-        holder.todo_name.setText(listTasks.get(position).getName());
-        holder.todo_date.setText(listTasks.get(position).getDate());
+        holder.todo_name.setText(listTasks.get(position).getName());// Sets the text for name in the name element on the view
+        holder.todo_date.setText(listTasks.get(position).getDate());// Sets the text for date in the date element on the view
     }
 
 
