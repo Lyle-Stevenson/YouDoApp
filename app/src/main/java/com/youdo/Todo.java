@@ -9,11 +9,12 @@ public class Todo {
 
     private String name;
     private String date;
-
+    private String cat;
     public Todo (){}
 
-    public Todo(String name,String date){
+    public Todo(String name,String category, String date){
         this.setName(name);
+        this.setCat(category);
         this.setDate(date);
     }
 
@@ -32,4 +33,9 @@ public class Todo {
     public void setDate(String date) {
         this.date = date;
     }
+
+
+public void setCat(String category) {this.cat = category; }
+
+public String getCat() {return cat;}
 }
