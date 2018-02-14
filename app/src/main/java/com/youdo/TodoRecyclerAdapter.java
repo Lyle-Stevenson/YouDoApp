@@ -31,14 +31,12 @@ public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapte
     public class TodoViewHolder extends RecyclerView.ViewHolder {
 
         TextView todo_name;
-        TextView todo_cat;
         TextView todo_date;
 
         public TodoViewHolder(View view) {
             super(view);
             todo_name = (TextView) itemView.findViewById(R.id.todoName);
             todo_date = (TextView) itemView.findViewById(R.id.todoDate);
-            todo_cat = (TextView) itemView.findViewById(R.id.Category_drop_down);
         }
 
 
@@ -56,7 +54,6 @@ public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapte
     public void onBindViewHolder(final TodoViewHolder holder, int position) {
         Log.d("List", listTasks.get(position).toString());
         holder.todo_name.setText(listTasks.get(position).getName());
-        holder.todo_cat.setText(listTasks.get(position).getCat());
         holder.todo_date.setText(listTasks.get(position).getDate());
     }
 

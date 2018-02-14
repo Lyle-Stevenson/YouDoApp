@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 /**
  * Created by Lyle on 12/02/2018.
- * Fixed by Callum on Valentines day. (I know, how romantic)
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper{
@@ -27,12 +26,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String ID_COL = "ID";
     private static final String NAME_COL = "name";
     private static final String DATE_COL = "date";
-    private static final String TASK_CAT_COL = "category";
 
     // To do table create statement
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
-            + " TEXT," + TASK_CAT_COL + "TEXT," + DATE_COL + " DATETIME" + ")";
+            + " TEXT,"  + DATE_COL + " DATETIME" + ")";
 
     // Event table create statement
     private static final String CREATE_TABLE_EVENTS = "CREATE TABLE "
@@ -64,8 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         ContentValues values = new ContentValues();
         values.put(NAME_COL, todo.getName());
-        values.put(TASK_CAT_COL,todo.getCat());
         values.put(DATE_COL, todo.getDate());
+
         // insert row
         long result = db.insert(TABLE_TODO, null, values);
 
@@ -88,7 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         while(data.moveToNext()){
             Todo task = new Todo();
             task.setName(data.getString(data.getColumnIndex("name")));
-            task.setCat(data.getString(data.getColumnIndex("category")));
             task.setDate(data.getString(data.getColumnIndex("date")));
             tasksList.add(task);
         }
