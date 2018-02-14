@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 public class AddtaskActivity extends AppCompatActivity {
     private DatabaseHelper database; //referes to database
     EditText editTask;
+    //Hi Lyle, android studio is working
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
