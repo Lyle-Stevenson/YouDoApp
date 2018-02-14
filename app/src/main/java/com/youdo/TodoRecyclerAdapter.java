@@ -38,7 +38,7 @@ public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapte
             super(view);
             todo_name = (TextView) itemView.findViewById(R.id.todoName);
             todo_date = (TextView) itemView.findViewById(R.id.todoDate);
-            todo_cat = (TextView) itemView.findViewById(R.id.Category_drop_down);
+            todo_cat = (TextView) itemView.findViewById(R.id.todoCategory);
         }
 
 

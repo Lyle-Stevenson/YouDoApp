@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     // To do table create statement
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
-            + " TEXT," + TASK_CAT_COL + "TEXT," + DATE_COL + " DATETIME" + ")";
+            + " TEXT," + TASK_CAT_COL + " TEXT," + DATE_COL + " DATETIME" + ")";
 
     // Event table create statement
     private static final String CREATE_TABLE_EVENTS = "CREATE TABLE "

@@ -20,7 +20,8 @@ import java.util.Locale;
 public class AddtaskActivity extends AppCompatActivity {
     private DatabaseHelper database; //referes to database
     EditText editTask;
-    String selectedCatgory;
+    Spinner categoryChoice;
+    String selectedCategory;
     //Hi Lyle, android studio is working
 
     @Override
@@ -31,7 +32,8 @@ public class AddtaskActivity extends AppCompatActivity {
         database = new DatabaseHelper(this);
 
         //creates spinner drop down for adding tasks to todo list
-        final Spinner categoryChoice = (Spinner) findViewById(R.id.Category_drop_down);
+        categoryChoice = findViewById(R.id.category_drop_down);
+
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(AddtaskActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.categories));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -41,7 +43,7 @@ public class AddtaskActivity extends AppCompatActivity {
             @Override
             //makes the choice in the dropdown menu = selectedCategory
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedCategory = categoryChoice.getSelectedItem().toString();
+                selectedCategory = adapterView.getSelectedItem().toString();
             }
 
             @Override
@@ -65,9 +67,6 @@ public class AddtaskActivity extends AppCompatActivity {
         //Returns the name to the text in the box
         String name = editTask.getText().toString();
 
-        //Returns the category to the one from the drop box
-        String category = selectedCatgory;
-
         //Gets the time that the task is added
         long date = System.currentTimeMillis();
 
@@ -77,7 +76,7 @@ public class AddtaskActivity extends AppCompatActivity {
         //transforms the system time taken into the fate format
         String dateString = sdf.format(date);
 
-        Todo newTask = new Todo(name, category, dateString);
+        Todo newTask = new Todo(name, selectedCategory, dateString);
 
         database.addToDo(newTask);
 

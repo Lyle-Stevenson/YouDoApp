@@ -72,7 +72,7 @@ public class TodoActivity extends AppCompatActivity {
         }
 
         public void setCat(String cat) {
-            TextView todo_cat = (TextView) itemView.findViewById(R.id.Category_drop_down);
+            TextView todo_cat = (TextView) itemView.findViewById(R.id.todoCategory);
             todo_cat.setText(cat);
         }
 
