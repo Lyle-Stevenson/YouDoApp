@@ -25,6 +25,8 @@ import java.util.List;
 
 public class TodoActivity extends AppCompatActivity {
 
+    //Chne 1
+
     private DatabaseHelper database;
 
     private RecyclerView todoList; //Reference to the recycle view
