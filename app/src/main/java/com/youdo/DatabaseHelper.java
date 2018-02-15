@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String ID_COL = "ID";
     private static final String NAME_COL = "name";
     private static final String DATE_COL = "date";
+    private static final String DESCR_COL = "description";
     private static final String TASK_CAT_COL = "category";
 
     // To do table create statement
@@ -37,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     // Event table create statement
     private static final String CREATE_TABLE_EVENTS = "CREATE TABLE "
             + TABLE_EVENT+ "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
-            + " TEXT,"  + DATE_COL + " DATETIME" + ")";
+            + " TEXT,"  + DESCR_COL + " TEXT" + ")";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,1);
@@ -60,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     //Create a to do task
     public boolean addToDo(Todo todo) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
         ContentValues values = new ContentValues();
         values.put(NAME_COL, todo.getName());
@@ -68,6 +69,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(DATE_COL, todo.getDate());
         // insert row
         long result = db.insert(TABLE_TODO, null, values);
+
+        if(result == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public boolean addEvent(Event event) {
+        SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
+
+        ContentValues values = new ContentValues();
+        values.put(NAME_COL, event.getName());
+        values.put(DESCR_COL, event.getDescription());
+
+        // insert row
+        long result = db.insert(TABLE_EVENT, null, values);
 
         if(result == -1){
             return false;

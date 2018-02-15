@@ -61,29 +61,6 @@ public class TodoActivity extends AppCompatActivity {
         populateListView();
     }
 
-    public static class TodoViewHolder extends RecyclerView.ViewHolder {
-
-        public TodoViewHolder(View itemView) {
-            super(itemView);
-            View mView = itemView;
-        }
-
-        public void setName(String name) {
-            TextView todo_name = (TextView) itemView.findViewById(R.id.todoName);
-            todo_name.setText(name);
-        }
-
-        public void setCat(String cat) {
-            TextView todo_cat = (TextView) itemView.findViewById(R.id.todoCategory);
-            todo_cat.setText(cat);
-        }
-
-        public void setDate(String date) {
-            TextView todo_date = (TextView) itemView.findViewById(R.id.todoDate);
-            todo_date.setText(date);
-        }
-    }
-
     private void populateListView() {
 
         // AsyncTask is used that SQLite operation not blocks the UI Thread.

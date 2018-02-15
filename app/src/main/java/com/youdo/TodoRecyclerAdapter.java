@@ -24,8 +24,6 @@ public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapte
     public TodoRecyclerAdapter(ArrayList<Todo> listTasks, Context mContext) {
         this.listTasks = listTasks;
         this.mContext = mContext;
-
-
     }
 
     public class TodoViewHolder extends RecyclerView.ViewHolder {

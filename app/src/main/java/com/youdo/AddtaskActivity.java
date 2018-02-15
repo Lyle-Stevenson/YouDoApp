@@ -1,9 +1,7 @@
 package com.youdo;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,11 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class AddtaskActivity extends AppCompatActivity {
     private DatabaseHelper database; //referes to database
@@ -61,7 +55,7 @@ public class AddtaskActivity extends AppCompatActivity {
     public void addButtonClicked(View view) {
 
         //adds reference to the text box on activity
-        editTask = (EditText) findViewById(R.id.editTask);
+        editTask = (EditText) findViewById(R.id.editName);
 
 
         //Returns the name to the text in the box
