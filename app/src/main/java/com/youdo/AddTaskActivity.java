@@ -11,7 +11,7 @@ import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 
-public class AddtaskActivity extends AppCompatActivity {
+public class AddTaskActivity extends AppCompatActivity {
     private DatabaseHelper database; //referes to database
     EditText editTask;
     Spinner categoryChoice;
@@ -21,14 +21,14 @@ public class AddtaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addtask);
+        setContentView(R.layout.activity_add_task);
         //Gets reference to the database
         database = new DatabaseHelper(this);
 
         //creates spinner drop down for adding tasks to todo list
         categoryChoice = findViewById(R.id.category_drop_down);
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(AddtaskActivity.this,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(AddTaskActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.categories));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoryChoice.setAdapter(myAdapter);
@@ -70,11 +70,11 @@ public class AddtaskActivity extends AppCompatActivity {
         //transforms the system time taken into the fate format
         String dateString = sdf.format(date);
 
-        Todo newTask = new Todo(name, selectedCategory, dateString);
+        Task newTask = new Task(name, selectedCategory, dateString);
 
         database.addToDo(newTask);
 
-        Intent TaskList = new Intent(AddtaskActivity.this, TodoActivity.class);
+        Intent TaskList = new Intent(AddTaskActivity.this, TodoActivity.class);
         startActivity(TaskList);
     }
 

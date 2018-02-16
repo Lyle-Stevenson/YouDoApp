@@ -6,28 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.youdo.CalendarActivity">
 
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/compactcalendar_view"
-        android:layout_width="fill_parent"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:layout_height="250dp"
-        app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextSize="12sp"
-        app:compactCalendarBackgroundColor="#000000"
-        app:compactCalendarTextColor="#ffffff"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="#afafaf"
-        app:compactCalendarCurrentDayTextColor="#000000"
-        app:compactCalendarCurrentDayBackgroundColor="#ffffff"
-        app:compactCalendarMultiEventIndicatorColor="#fff"
-        />
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appBarLayout3" />
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/eventView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout3">
+        android:layout_below="@+id/calendarView"
+        android:layout_centerHorizontal="true"
+        android:clipToPadding="false" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -37,10 +35,5 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="400px"
-        android:clipToPadding="false" />
 
 </RelativeLayout>

@@ -1,13 +1,36 @@
 package com.youdo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
+
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
+
+    private DatabaseHelper database;
+
+    private RecyclerView todoList; //Reference to the recycle view
+    Context context = CalendarActivity.this;
+    private RecyclerView recyclerViewEvent;
+    private ArrayList<Event> listEvents;
+    private EventRecyclerAdapter eventRecyclerAdapter;
+    private ArrayList<Event> filteredList;
+    private CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +40,54 @@ public class CalendarActivity extends AppCompatActivity {
         //Adds the toolbar to activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        database = new DatabaseHelper(this);
+
+
+        //initialises the recycler view
+
+        listEvents = new ArrayList<>();
+        recyclerViewEvent = (RecyclerView) findViewById(R.id.eventView);
+        eventRecyclerAdapter = new EventRecyclerAdapter(listEvents, this);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerViewEvent.setLayoutManager(mLayoutManager);
+        recyclerViewEvent.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewEvent.setHasFixedSize(true);
+        recyclerViewEvent.setAdapter(eventRecyclerAdapter);
+
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+                String date = day + "/" + (month+1) + "/" + year;
+                Log.d("Calendar","OnSelectedDayChangeDate; " + date);
+                populateListView(date);
+            }
+        });
+
+    }
+
+    private void populateListView(final String findDate) {
+        Log.d("Calendar","Performing getevent data ");
+        // AsyncTask is used that SQLite operation not blocks the UI Thread.
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                listEvents.clear();
+                listEvents.addAll(database.getEventData(findDate));
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                eventRecyclerAdapter.notifyDataSetChanged();
+            }
+        }.execute();
+
     }
 
     @Override

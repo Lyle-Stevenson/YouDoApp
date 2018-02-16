@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String NAME_COL = "name";
     private static final String DATE_COL = "date";
     private static final String DESCR_COL = "description";
+    private static final String TIME_COL = "time";
     private static final String TASK_CAT_COL = "category";
 
     // To do table create statement
@@ -38,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     // Event table create statement
     private static final String CREATE_TABLE_EVENTS = "CREATE TABLE "
             + TABLE_EVENT+ "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
-            + " TEXT,"  + DESCR_COL + " TEXT" + ")";
+            + " TEXT," + DATE_COL + " TEXT," + TIME_COL + " TEXT," + DESCR_COL + " TEXT" + ")";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,1);
@@ -60,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     //Create a to do task
-    public boolean addToDo(Todo todo) {
+    public boolean addToDo(Task todo) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
         ContentValues values = new ContentValues();
@@ -83,6 +85,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(NAME_COL, event.getName());
         values.put(DESCR_COL, event.getDescription());
+        values.put(DATE_COL, event.getDate());
+        values.put(TIME_COL, event.getTime());
 
         // insert row
         long result = db.insert(TABLE_EVENT, null, values);
@@ -102,9 +106,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Cursor data = db.rawQuery(selectQuery,null);
 
         //Get tasks from the database
-        ArrayList<Todo> tasksList = new ArrayList<>();
+        ArrayList<Task> tasksList = new ArrayList<>();
         while(data.moveToNext()){
-            Todo task = new Todo();
+            Task task = new Task();
             task.setName(data.getString(data.getColumnIndex("name")));
             task.setCat(data.getString(data.getColumnIndex("category")));
             task.setDate(data.getString(data.getColumnIndex("date")));
@@ -113,5 +117,28 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         data.close();
         db.close();
         return tasksList;
+    }
+
+    public ArrayList getEventData(String date){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_EVENT + " WHERE date = '" + date +"'";
+        Log.d("Calendar",selectQuery);
+        Cursor data = db.rawQuery(selectQuery,null);
+
+        //Get tasks from the database
+        ArrayList<Event> eventList = new ArrayList<>();
+
+        while(data.moveToNext()){
+            Event event = new Event();
+            event.setName(data.getString(data.getColumnIndex("name")));
+            event.setDescription(data.getString(data.getColumnIndex("description")));
+            event.setTime(data.getString(data.getColumnIndex("time")));
+            event.setDate(data.getString(data.getColumnIndex("date")));
+            eventList.add(event);
+        }
+        data.close();
+        db.close();
+        return eventList;
     }
 }

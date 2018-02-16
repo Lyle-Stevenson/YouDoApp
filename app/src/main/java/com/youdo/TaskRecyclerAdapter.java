@@ -14,14 +14,14 @@ import java.util.ArrayList;
  * Created by Lyle on 12/02/2018.
  */
 
-public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHolder> {
+public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TodoViewHolder> {
 
-    private ArrayList<Todo> listTasks;
+    private ArrayList<Task> listTasks;
     private Context mContext;
-    private ArrayList<Todo> mFilteredList;
+    private ArrayList<Task> mFilteredList;
 
 
-    public TodoRecyclerAdapter(ArrayList<Todo> listTasks, Context mContext) {
+    public TaskRecyclerAdapter(ArrayList<Task> listTasks, Context mContext) {
         this.listTasks = listTasks;
         this.mContext = mContext;
     }

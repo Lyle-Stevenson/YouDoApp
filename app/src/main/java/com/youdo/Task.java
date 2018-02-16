@@ -5,14 +5,14 @@ package com.youdo;
  * Class for a to do list item
  */
 
-public class Todo {
+public class Task {
 
     private String name;
     private String date;
     private String cat;
-    public Todo (){}
+    public Task(){}
 
-    public Todo(String name,String category, String date){
+    public Task(String name, String category, String date){
         this.setName(name);
         this.setCat(category);
         this.setDate(date);
