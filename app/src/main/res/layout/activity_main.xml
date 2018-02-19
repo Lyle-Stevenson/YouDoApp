@@ -24,16 +24,17 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/money"
-        app:layout_constraintStart_toEndOf="@+id/button6"
+        app:layout_constraintStart_toEndOf="@+id/buttonSchedule"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/buttonSchedule"
         android:layout_width="45dp"
         android:layout_height="38dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/fitness"
+        android:onClick="buttonSchedule"
         app:layout_constraintStart_toEndOf="@+id/buttonTodo"
         app:layout_constraintTop_toTopOf="parent" />
 

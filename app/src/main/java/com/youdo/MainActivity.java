@@ -35,5 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(todo);
             }
         });
+
+    }
+
+    public void buttonSchedule(View view) {
+        Intent schedule = new Intent(MainActivity.this, ScheduleActivity.class);
+        startActivity(schedule);
     }
 }

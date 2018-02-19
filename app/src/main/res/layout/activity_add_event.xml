@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editName"
+        android:layout_below="@+id/editStartTime"
         android:hint="Enter Description" />
 
     <EditText
-        android:id="@+id/editName"
+        android:id="@+id/editStartTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Name" />

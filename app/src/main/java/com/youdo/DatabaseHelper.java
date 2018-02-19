@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Table names
     private static final String TABLE_TODO = "tasks";
     private static final String TABLE_EVENT = "events";
+    private static final String TABLE_SCHEDULE = "schedule";
 
     //Common column names
     private static final String ID_COL = "ID";
@@ -30,6 +31,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DATE_COL = "date";
     private static final String DESCR_COL = "description";
     private static final String TIME_COL = "time";
+    private static final String END_TIME_COL = "start_time";
+    private static final String START_TIME_COL = "end_time";
+    private static final String DAY_COL = "day";
     private static final String TASK_CAT_COL = "category";
 
     // To do table create statement
@@ -42,6 +46,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             + TABLE_EVENT+ "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
             + " TEXT," + DATE_COL + " TEXT," + TIME_COL + " TEXT," + DESCR_COL + " TEXT" + ")";
 
+    // Schedule table create statement
+    private static final String CREATE_TABLE_SCHEDULE = "CREATE TABLE "
+            + TABLE_SCHEDULE + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
+            + " TEXT," + DAY_COL + " TEXT," + START_TIME_COL + " TEXT," + END_TIME_COL + " TEXT" + ")";
+
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,1);
     }
@@ -50,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_TODO);
         db.execSQL(CREATE_TABLE_EVENTS);
+        db.execSQL(CREATE_TABLE_SCHEDULE);
     }
 
     @Override
@@ -57,6 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE);
 
         onCreate(db);
     }
@@ -140,5 +151,46 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         data.close();
         db.close();
         return eventList;
+    }
+
+    public boolean addScheduleItem(ScheduleItem newItem, String day) {
+
+        SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
+
+        ContentValues values = new ContentValues();
+        values.put(NAME_COL, newItem.getName());
+        values.put(START_TIME_COL, newItem.getStart());
+        values.put(END_TIME_COL, newItem.getEnd());
+        values.put(DAY_COL, day);
+
+        // insert row
+        long result = db.insert(TABLE_EVENT, null, values);
+
+        if(result == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public ArrayList getScheduleData(String day){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE + " WHERE day = '" + day +"'";
+        Cursor data = db.rawQuery(selectQuery,null);
+
+        //Get tasks from the database
+        ArrayList<ScheduleItem> itemList = new ArrayList<>();
+
+        while(data.moveToNext()){
+            ScheduleItem item = new ScheduleItem();
+            item.setName(data.getString(data.getColumnIndex("name")));
+            item.setStart(data.getString(data.getColumnIndex("start")));
+            item.setEnd(data.getString(data.getColumnIndex("end")));
+            itemList.add(item);
+        }
+        data.close();
+        db.close();
+        return itemList;
     }
 }
