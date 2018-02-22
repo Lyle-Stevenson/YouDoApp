@@ -7,15 +7,15 @@
     tools:context="com.youdo.AddEventActivity">
 
     <EditText
-        android:id="@+id/editDescription"
+        android:id="@+id/editEventDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editStartTime"
+        android:layout_below="@+id/editEventName"
         android:hint="Enter Description" />
 
     <EditText
-        android:id="@+id/editStartTime"
+        android:id="@+id/editEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Name" />
@@ -26,45 +26,43 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:onClick="addButtonClicked"
+        android:onClick="addEventButtonClicked"
         android:text="Add" />
 
     <EditText
-        android:id="@+id/editDate"
+        android:id="@+id/editEventDate"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editDescription"
+        android:layout_below="@+id/editEventDescription"
         android:layout_marginTop="15dp" />
 
     <Button
+        android:id="@+id/buttonEventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SELECT DATE"
-        android:id="@+id/buttonDate"
-        android:layout_alignBottom="@+id/editDate"
-        android:layout_toRightOf="@+id/editDate"
-        android:layout_toEndOf="@+id/editDate"
-        android:onClick="setDateClicked"
-        />
+        android:layout_alignBottom="@+id/editEventDate"
+        android:layout_toEndOf="@+id/editEventDate"
+        android:layout_toRightOf="@+id/editEventDate"
+        android:onClick="setEventDateClicked"
+        android:text="SELECT DATE" />
 
     <EditText
-        android:id="@+id/editTime"
+        android:id="@+id/editEventTime"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editDate" />
+        android:layout_below="@+id/editEventDate" />
 
     <Button
-        android:id="@+id/buttonTime"
+        android:id="@+id/buttonEventTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonDate"
-        android:layout_alignStart="@+id/buttonDate"
-        android:layout_below="@+id/buttonDate"
-        android:text="SELECT TIME"
-        android:onClick="setTimeClicked"
-        />
+        android:layout_alignLeft="@+id/buttonEventDate"
+        android:layout_alignStart="@+id/buttonEventDate"
+        android:layout_below="@+id/buttonEventDate"
+        android:onClick="setEventTimeClicked"
+        android:text="SELECT TIME" />
 
 </RelativeLayout>

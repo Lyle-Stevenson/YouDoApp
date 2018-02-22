@@ -23,12 +23,10 @@ import java.util.ArrayList;
 public class ScheduleActivity extends AppCompatActivity {
 
     private DatabaseHelper database;
-
-    private RecyclerView todoList; //Reference to the recycle view
     Context context = ScheduleActivity.this;
     private RecyclerView recyclerViewSchedule;
-    private ArrayList<Event> listSchedule;
-    private EventRecyclerAdapter scheduleRecyclerAdapter;
+    private ArrayList<ScheduleItem> listSchedule;
+    private ScheduleRecyclerAdapter scheduleRecyclerAdapter;
     TabLayout days;
 
     @Override
@@ -38,30 +36,36 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        days = (TabLayout) findViewById(R.id.dayTabs);
         setSupportActionBar(toolbar);
+        //initalises the tablayout
+        days = (TabLayout) findViewById(R.id.dayTabs);
+
+        database = new DatabaseHelper(this);
 
         listSchedule = new ArrayList<>();//Array list to hold fetched items
 
         // Initialises the recyclerView
         recyclerViewSchedule = (RecyclerView) findViewById(R.id.schedRecyclerView);
-        scheduleRecyclerAdapter = new EventRecyclerAdapter(listSchedule, this);
+        scheduleRecyclerAdapter = new ScheduleRecyclerAdapter(listSchedule, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewSchedule.setLayoutManager(mLayoutManager);
         recyclerViewSchedule.setItemAnimator(new DefaultItemAnimator());
         recyclerViewSchedule.setHasFixedSize(true);
         recyclerViewSchedule.setAdapter(scheduleRecyclerAdapter);
 
+        populateListView();
     }
 
-    private void populateListView(final String findDate) {
+    private void populateListView() {
         // AsyncTask is used that SQLite operation not blocks the UI Thread.
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                listSchedule.clear(); //Clear the current data that has been taken from db
-                //We have to find a way to pass what day tab we are in
-                // listSchedule.addAll(database.getScheduleData()); //Get up to date data from db
+                listSchedule.clear();
+                int pos = days.getSelectedTabPosition(); //gets the current selected tab position
+                String day = days.getTabAt(pos).getText().toString(); //Returns the text in tab box i.e mon tues wed etc
+                Log.d("Day", day + pos);
+                listSchedule.addAll(database.getScheduleData(day)); //Get up to date data from db
 
                 return null;
             }
@@ -95,7 +99,9 @@ public class ScheduleActivity extends AppCompatActivity {
         //If the add task item is selected
         if(id == R.id.addTask){
             //Creates intent to start add task activity.
+            int pos = days.getSelectedTabPosition();
             Intent addScheduleItem = new Intent(ScheduleActivity.this, AddToScheduleActivity.class);
+            addScheduleItem.putExtra("Day", days.getTabAt(pos).getText().toString()); //Passes the current day seleceted data in the intent to add schedule activity.
             startActivity(addScheduleItem);
         }
 

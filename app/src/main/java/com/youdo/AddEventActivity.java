@@ -30,13 +30,13 @@ public class AddEventActivity extends AppCompatActivity {
         //Gets reference to the database
         database = new DatabaseHelper(this);
 
-        buttonDate=(Button)findViewById(R.id.buttonDate);
-        buttonTime=(Button)findViewById(R.id.buttonTime);
-        editDate=(EditText)findViewById(R.id.editDate);
-        editTime=(EditText)findViewById(R.id.editTime);
+        buttonDate=(Button)findViewById(R.id.buttonEventDate);
+        buttonTime=(Button)findViewById(R.id.buttonEventTime);
+        editDate=(EditText)findViewById(R.id.editEventDate);
+        editTime=(EditText)findViewById(R.id.editEventTime);
     }
 
-    public void setDateClicked(View view){
+    public void setEventDateClicked(View view){
         // Get Current Date
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -55,7 +55,7 @@ public class AddEventActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void setTimeClicked(View view){
+    public void setEventTimeClicked(View view){
 
         // Get Current Time
         final Calendar c = Calendar.getInstance();
@@ -77,28 +77,28 @@ public class AddEventActivity extends AppCompatActivity {
     }
     //When add event buttion is clicked
 
-    public void addButtonClicked(View view) {
+    public void addEventButtonClicked(View view) {
 
         //adds reference to the text box on activity
-        editName = (EditText) findViewById(R.id.editName);
+        editName = (EditText) findViewById(R.id.editEventName);
 
         //Returns the name to the text in the box
         String name = editName.getText().toString();
 
         //adds reference to the text box on activity
-        editDescription = (EditText) findViewById(R.id.editDescription);
+        editDescription = (EditText) findViewById(R.id.editEventDescription);
 
         //Returns the name to the text in the box
         String description = editDescription.getText().toString();
 
         //adds reference to the text box on activity
-        editDate = (EditText) findViewById(R.id.editDate);
+        editDate = (EditText) findViewById(R.id.editEventDate);
 
         //Returns the name to the text in the box
         String date = editDate.getText().toString();
 
         //adds reference to the text box on activity
-        editTime = (EditText) findViewById(R.id.editTime);
+        editTime = (EditText) findViewById(R.id.editEventTime);
 
         //Returns the name to the text in the box
         String time = editTime.getText().toString();

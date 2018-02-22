@@ -26,13 +26,13 @@ public class AddToScheduleActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);
 
-        buttonEndTime=(Button)findViewById(R.id.buttonEndTime);
-        buttonStartTime=(Button)findViewById(R.id.buttonStartTime);
-        editStartTime=(EditText)findViewById(R.id.editStartTime);
-        editEndTime=(EditText)findViewById(R.id.editEndTime);
+        buttonEndTime=(Button)findViewById(R.id.buttonScheduleEndTime);
+        buttonStartTime=(Button)findViewById(R.id.buttonScheduleStartTime);
+        editStartTime=(EditText)findViewById(R.id.editScheduleStartTime);
+        editEndTime=(EditText)findViewById(R.id.editScheduleEndTime);
     }
 
-    public void setEndTimeClicked(View view) {
+    public void setScheduleEndTimeClicked(View view) {
         // Get Current Time
         final Calendar c = Calendar.getInstance();
         endHour = c.get(Calendar.HOUR_OF_DAY);
@@ -52,7 +52,7 @@ public class AddToScheduleActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    public void setStartTimeClicked(View view) {
+    public void setScheduleStartTimeClicked(View view) {
         // Get Current Time
         final Calendar c = Calendar.getInstance();
         startHour = c.get(Calendar.HOUR_OF_DAY);
@@ -72,31 +72,32 @@ public class AddToScheduleActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    public void addButtonClicked(View view) {
+    public void addScheduleButtonClicked(View view) {
         //adds reference to the text box on activity
-        editName = (EditText) findViewById(R.id.editName);
+        editName = (EditText) findViewById(R.id.editScheduleName);
 
         //Returns the name to the text in the box
         String name = editName.getText().toString();
 
         //adds reference to the text box on activity
-        editStartTime = (EditText) findViewById(R.id.editStartTime);
+        editStartTime = (EditText) findViewById(R.id.editScheduleStartTime);
 
         //Returns the name to the text in the box
         String startTime = editStartTime.getText().toString();
 
         //adds reference to the text box on activity
-        editEndTime = (EditText) findViewById(R.id.editEndTime);
+        editEndTime = (EditText) findViewById(R.id.editScheduleEndTime);
 
         //Returns the name to the text in the box
         String endTime = editEndTime.getText().toString();
 
         ScheduleItem newItem = new ScheduleItem(name, startTime, endTime);
 
-        //We need to find a way to determin which day is being added to and pass it to the database.
-       //database.addScheduleItem(newItem, );
+        String day = getIntent().getStringExtra("Day");// Fetechs the day data passed in intent
 
-        Intent Calendar = new Intent(AddToScheduleActivity.this, ScheduleActivity.class);
-        startActivity(Calendar);
+        database.addScheduleItem(newItem, day);
+
+        Intent schedule = new Intent(AddToScheduleActivity.this, ScheduleActivity.class);
+        startActivity(schedule);
     }
 }

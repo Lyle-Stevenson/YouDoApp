@@ -52,10 +52,10 @@ public class AddTaskActivity extends AppCompatActivity {
 
         //When add task buttion is clicked
 
-    public void addButtonClicked(View view) {
+    public void addTaskButtonClicked(View view) {
 
         //adds reference to the text box on activity
-        editTask = (EditText) findViewById(R.id.editStartTime);
+        editTask = (EditText) findViewById(R.id.editTaskName);
 
 
         //Returns the name to the text in the box

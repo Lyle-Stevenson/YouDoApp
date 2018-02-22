@@ -164,7 +164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(DAY_COL, day);
 
         // insert row
-        long result = db.insert(TABLE_EVENT, null, values);
+        long result = db.insert(TABLE_SCHEDULE, null, values);
 
         if(result == -1){
             return false;
@@ -177,16 +177,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE + " WHERE day = '" + day +"'";
+        Log.d("Query", selectQuery);
         Cursor data = db.rawQuery(selectQuery,null);
-
+        Log.d("Query", data.toString());
         //Get tasks from the database
         ArrayList<ScheduleItem> itemList = new ArrayList<>();
 
         while(data.moveToNext()){
             ScheduleItem item = new ScheduleItem();
             item.setName(data.getString(data.getColumnIndex("name")));
-            item.setStart(data.getString(data.getColumnIndex("start")));
-            item.setEnd(data.getString(data.getColumnIndex("end")));
+            item.setStart(data.getString(data.getColumnIndex("start_time")));
+            item.setEnd(data.getString(data.getColumnIndex("end_time")));
             itemList.add(item);
         }
         data.close();
