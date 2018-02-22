@@ -26,11 +26,10 @@ public class CalendarActivity extends AppCompatActivity {
 
     private RecyclerView todoList; //Reference to the recycle view
     Context context = CalendarActivity.this;
-    private RecyclerView recyclerViewEvent;
-    private ArrayList<Event> listEvents;
-    private EventRecyclerAdapter eventRecyclerAdapter;
-    private ArrayList<Event> filteredList;
-    private CalendarView calendarView;
+    private RecyclerView recyclerViewEvent; //Reference to the recycler view
+    private ArrayList<Event> listEvents; // List to store the events fetched from the db
+    private EventRecyclerAdapter eventRecyclerAdapter; // Reference to recycler view adapter
+    private CalendarView calendarView; //Reference to the calendar view.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class CalendarActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        database = new DatabaseHelper(this);
+        database = new DatabaseHelper(this);//Database reference
 
 
         //initialises the recycler view
@@ -58,25 +57,24 @@ public class CalendarActivity extends AppCompatActivity {
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
 
+        //Checks if a new day has been selected on the calendar
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                String date = day + "/" + (month+1) + "/" + year;
-                Log.d("Calendar","OnSelectedDayChangeDate; " + date);
-                populateListView(date);
+                String date = day + "/" + (month+1) + "/" + year; //Gets a string format of the date selected to pass to db
+                populateListView(date); //poplates list with events from current day
             }
         });
 
     }
 
     private void populateListView(final String findDate) {
-        Log.d("Calendar","Performing getevent data ");
         // AsyncTask is used that SQLite operation not blocks the UI Thread.
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 listEvents.clear();
-                listEvents.addAll(database.getEventData(findDate));
+                listEvents.addAll(database.getEventData(findDate)); //Gets the data for the current date
 
                 return null;
             }
