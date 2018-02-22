@@ -7,54 +7,61 @@
     tools:context="com.youdo.AddToScheduleActivity">
 
     <EditText
-        android:id="@+id/editName"
+
+        android:id="@+id/editScheduleName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Name" />
 
     <EditText
-        android:id="@+id/editEndTime"
+
+        android:id="@+id/editScheduleEndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonEndTime"
+        android:layout_alignBottom="@+id/buttonScheduleEndTime"
         android:layout_alignParentStart="true"
         android:hint="Enter End Time" />
 
     <EditText
-        android:id="@+id/editStartTime"
+
+        android:id="@+id/editScheduleStartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/buttonStartTime"
+        android:layout_above="@+id/buttonAddSchedule"
+        android:layout_alignEnd="@+id/editScheduleEndTime"
+        android:layout_marginBottom="64dp"
         android:hint="Enter Start Time" />
 
     <Button
-        android:id="@+id/buttonAddEvent"
+
+        android:id="@+id/buttonAddSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:onClick="addButtonClicked"
+        android:onClick="addScheduleButtonClicked"
         android:text="Add" />
 
     <Button
-        android:id="@+id/buttonStartTime"
+
+        android:id="@+id/buttonScheduleStartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonEndTime"
+        android:layout_alignBottom="@+id/buttonScheduleEndTime"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="48dp"
-        android:onClick="setStartTimeClicked"
+        android:onClick="setScheduleStartTimeClicked"
         android:text="SELECT START TIME" />
 
     <Button
-        android:id="@+id/buttonEndTime"
+
+        android:id="@+id/buttonScheduleEndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonAddEvent"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:onClick="setEndTimeClicked"
+        android:layout_above="@+id/buttonAddSchedule"
+        android:layout_marginBottom="23dp"
+        android:layout_toEndOf="@+id/buttonAddSchedule"
+        android:onClick="setScheduleEndTimeClicked"
         android:text="SELECT ENDTIME" />
 
 </RelativeLayout>
