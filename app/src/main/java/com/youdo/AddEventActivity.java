@@ -1,15 +1,19 @@
 package com.youdo;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -21,6 +25,7 @@ public class AddEventActivity extends AppCompatActivity {
     Button buttonDate, buttonTime;
     EditText editDate, editTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    Calendar calendarReminder = Calendar.getInstance();
 
 
     @Override
@@ -34,6 +39,7 @@ public class AddEventActivity extends AppCompatActivity {
         buttonTime=(Button)findViewById(R.id.buttonEventTime);
         editDate=(EditText)findViewById(R.id.editEventDate);
         editTime=(EditText)findViewById(R.id.editEventTime);
+
     }
 
     public void setEventDateClicked(View view){
@@ -71,6 +77,9 @@ public class AddEventActivity extends AppCompatActivity {
                                           int minute) {
 
                         editTime.setText(hourOfDay + ":" + minute);
+                        calendarReminder.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        calendarReminder.set(Calendar.MINUTE,minute);
+
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
@@ -107,8 +116,37 @@ public class AddEventActivity extends AppCompatActivity {
 
         database.addEvent(newEvent);
 
+        setAlarm(calendarReminder.getTimeInMillis());
+
         Intent Calendar = new Intent(AddEventActivity.this, CalendarActivity.class);
         startActivity(Calendar);
     }
+
+    private void setAlarm(long timeInMillis){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
+        
+        alarmManager.setRepeating(AlarmManager.RTC, timeInMillis, 1000, pendingIntent);
+
+        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
+    }
+
+  /*  public void initChannels(Context context) {
+        if (Build.VERSION.SDK_INT < 26) {
+            return;
+        }
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel channel = new NotificationChannel("default",
+                "NOTIFICATION",
+                NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription("Channel");
+        notificationManager.createNotificationChannel(channel);
+    }
+
+    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "default");*/
+
 
 }

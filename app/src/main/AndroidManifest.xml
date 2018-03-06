@@ -29,7 +29,11 @@
             android:label="@string/title_activity_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddToScheduleActivity" />
-        <activity android:name=".AddEventActivity"></activity>
+        <activity android:name=".AddEventActivity" />
+        <receiver android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            />
     </application>
 
 </manifest>
