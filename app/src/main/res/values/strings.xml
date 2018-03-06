@@ -9,4 +9,6 @@
         <item>Custom</item>
     </string-array>
     <string name="title_activity_schedule">Schedule</string>
+    <string name="title_activity_notification_receiver">NotificationReceiverActivity</string>
+    <string name="title_activity_create_notification">CreateNotificationActivity</string>
 </resources>
