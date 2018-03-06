@@ -11,12 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 public class TodoActivity extends AppCompatActivity {
 
-    //Chne 1
+    //Change 1
 
     private DatabaseHelper database;
 
@@ -26,6 +30,8 @@ public class TodoActivity extends AppCompatActivity {
     private ArrayList<Task> listTasks;
     private TaskRecyclerAdapter todoRecyclerAdapter;
     private ArrayList<Task> filteredList;
+    Spinner categoryFilter;
+    String selectedFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,33 @@ public class TodoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         database = new DatabaseHelper(this);
+
+
+        //Creates the dropdown menu for the filter
+        categoryFilter= findViewById(R.id.filter_Drop_Down);
+
+        //fills drop down list with categories
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(TodoActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.categories));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryFilter.setAdapter(myAdapter);
+
+        categoryFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            //makes the choice in the dropdown menu = selectedFilter
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedFilter = adapterView.getSelectedItem().toString();
+            }
+
+            @Override
+            //impossible to not select
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+
+        });
+
+
 
         //initialises the recycler view
 
@@ -49,6 +82,8 @@ public class TodoActivity extends AppCompatActivity {
         recyclerViewTodo.setHasFixedSize(true);
         recyclerViewTodo.setAdapter(todoRecyclerAdapter);
 
+
+
         populateListView();
     }
 
@@ -59,7 +94,7 @@ public class TodoActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 listTasks.clear();
-                listTasks.addAll(database.getTaskData());
+                listTasks.addAll(database.getTaskData(selectedFilter));
 
                 return null;
             }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -109,10 +110,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public ArrayList getTaskData(){
+    public ArrayList getTaskData(String selectedFilter){
         SQLiteDatabase db = this.getReadableDatabase();
+String selectQuery;
 
-        String selectQuery = "SELECT  * FROM " + TABLE_TODO;
+        if(selectedFilter == ""){
+        selectQuery = "SELECT  * FROM " + TABLE_TODO;
+        }else{
+            selectQuery = "SELECT  * FROM " + TABLE_TODO + "WHERE category ='" + selectedFilter +"'";
+        }
 
         Cursor data = db.rawQuery(selectQuery,null);
 

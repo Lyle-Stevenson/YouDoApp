@@ -50,7 +50,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
 
-        //When add task buttion is clicked
+        //When add task button is clicked
 
     public void addTaskButtonClicked(View view) {
 
