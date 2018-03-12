@@ -38,4 +38,7 @@ public class Task {
 public void setCat(String category) {this.cat = category; }
 
 public String getCat() {return cat;}
+
 }
+
+

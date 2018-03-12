@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,11 @@ public class TodoActivity extends AppCompatActivity {
             //makes the choice in the dropdown menu = selectedFilter
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedFilter = adapterView.getSelectedItem().toString();
+                Log.d("lol",selectedFilter);
+                populateListView();
+                //fixed by benjamin after Callum spent 15 hours trying to work out this stupid ass
+                    //line of shitty code that took benjamin 30seconds to realise how retarded i was being
+
             }
 
             @Override
@@ -67,8 +73,6 @@ public class TodoActivity extends AppCompatActivity {
             }
 
         });
-
-
 
         //initialises the recycler view
 
@@ -81,10 +85,9 @@ public class TodoActivity extends AppCompatActivity {
         recyclerViewTodo.setItemAnimator(new DefaultItemAnimator());
         recyclerViewTodo.setHasFixedSize(true);
         recyclerViewTodo.setAdapter(todoRecyclerAdapter);
-
-
-
         populateListView();
+
+
     }
 
     private void populateListView() {
@@ -93,6 +96,7 @@ public class TodoActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
+
                 listTasks.clear();
                 listTasks.addAll(database.getTaskData(selectedFilter));
 

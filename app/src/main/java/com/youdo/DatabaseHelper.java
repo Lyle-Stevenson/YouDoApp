@@ -117,7 +117,7 @@ String selectQuery;
         if(selectedFilter == ""){
         selectQuery = "SELECT  * FROM " + TABLE_TODO;
         }else{
-            selectQuery = "SELECT  * FROM " + TABLE_TODO + "WHERE category ='" + selectedFilter +"'";
+            selectQuery = "SELECT  * FROM " + TABLE_TODO + " WHERE category ='" + selectedFilter +"'";
         }
 
         Cursor data = db.rawQuery(selectQuery,null);
