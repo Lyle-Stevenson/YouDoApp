@@ -13,7 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
@@ -23,12 +25,8 @@ import java.util.List;
 public class CalendarActivity extends AppCompatActivity {
 
     private DatabaseHelper database;
-
-    private RecyclerView todoList; //Reference to the recycle view
-    Context context = CalendarActivity.this;
-    private RecyclerView recyclerViewEvent; //Reference to the recycler view
-    private ArrayList<Event> listEvents; // List to store the events fetched from the db
-    private EventRecyclerAdapter eventRecyclerAdapter; // Reference to recycler view adapter
+    ListView eventList;
+    ArrayAdapter<Event> mAdapter;
     private CalendarView calendarView; //Reference to the calendar view.
 
     @Override
@@ -42,18 +40,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);//Database reference
 
-
-        //initialises the recycler view
-
-        listEvents = new ArrayList<>();
-        recyclerViewEvent = (RecyclerView) findViewById(R.id.eventView);
-        eventRecyclerAdapter = new EventRecyclerAdapter(listEvents, this);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewEvent.setLayoutManager(mLayoutManager);
-        recyclerViewEvent.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewEvent.setHasFixedSize(true);
-        recyclerViewEvent.setAdapter(eventRecyclerAdapter);
+        eventList = (ListView) findViewById(R.id.eventView);
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -68,23 +55,17 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
-    private void populateListView(final String findDate) {
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                listEvents.clear();
-                listEvents.addAll(database.getEventData(findDate)); //Gets the data for the current date
+    private void populateListView(String findDate) {
 
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                eventRecyclerAdapter.notifyDataSetChanged();
-            }
-        }.execute();
+        ArrayList<Event> dbList = database.getEventData(findDate);
+        if(mAdapter==null) {
+            mAdapter = new EventAdapter(this,dbList);
+            eventList.setAdapter(mAdapter);
+        }else{
+            mAdapter.clear();
+            mAdapter.addAll(dbList);
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
 

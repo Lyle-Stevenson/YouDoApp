@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -89,6 +88,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }else{
             return true;
         }
+    }
+
+    //Create a to do task
+    public void deleteTodo(String todo) {
+        SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
+
+        String query = "DELETE FROM " + TABLE_TODO + " WHERE " + NAME_COL + " = '" + todo +"'";
+
+        // insert row
+       db.execSQL(query);
     }
 
     public boolean addEvent(Event event) {

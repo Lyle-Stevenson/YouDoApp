@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,13 +26,8 @@ public class TodoActivity extends AppCompatActivity {
     //Change 1
 
     private DatabaseHelper database;
-
-    private RecyclerView todoList; //Reference to the recycle view
-    Context context = TodoActivity.this;
-    private RecyclerView recyclerViewTodo;
-    private ArrayList<Task> listTasks;
-    private TaskRecyclerAdapter todoRecyclerAdapter;
-    private ArrayList<Task> filteredList;
+    ListView taskList;
+    ArrayAdapter<Task> mAdapter;
     Spinner categoryFilter;
     String selectedFilter;
 
@@ -44,6 +41,7 @@ public class TodoActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);
 
+        taskList = (ListView) findViewById(R.id.todo_list);
 
         //Creates the dropdown menu for the filter
         categoryFilter= findViewById(R.id.filter_Drop_Down);
@@ -73,18 +71,6 @@ public class TodoActivity extends AppCompatActivity {
             }
 
         });
-
-        //initialises the recycler view
-
-        listTasks = new ArrayList<>();
-        recyclerViewTodo = (RecyclerView) findViewById(R.id.todo_list);
-        todoRecyclerAdapter = new TaskRecyclerAdapter(listTasks, this);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewTodo.setLayoutManager(mLayoutManager);
-        recyclerViewTodo.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewTodo.setHasFixedSize(true);
-        recyclerViewTodo.setAdapter(todoRecyclerAdapter);
         populateListView();
 
 
@@ -92,24 +78,24 @@ public class TodoActivity extends AppCompatActivity {
 
     private void populateListView() {
 
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
+        ArrayList<Task> dbList = database.getTaskData(selectedFilter);
+        if(mAdapter==null) {
+           mAdapter = new TaskAdapter(this,dbList);
+           taskList.setAdapter(mAdapter);
+        }else{
+            mAdapter.clear();
+            mAdapter.addAll(dbList);
+            mAdapter.notifyDataSetChanged();
+        }
 
-                listTasks.clear();
-                listTasks.addAll(database.getTaskData(selectedFilter));
+    }
 
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                todoRecyclerAdapter.notifyDataSetChanged();
-            }
-        }.execute();
-
+    public void deleteTaskButtonClicked(View view){
+        View parent = (View)view.getParent();
+        TextView taskName = (TextView)findViewById(R.id.todoName);
+        String task = String.valueOf(taskName.getText());
+        database.deleteTodo(task);
+        populateListView();
     }
 
     @Override

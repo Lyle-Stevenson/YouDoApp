@@ -16,17 +16,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class ScheduleActivity extends AppCompatActivity {
 
     private DatabaseHelper database;
-    Context context = ScheduleActivity.this;
-    private RecyclerView recyclerViewSchedule;
-    private ArrayList<ScheduleItem> listSchedule;
-    private ScheduleRecyclerAdapter scheduleRecyclerAdapter;
+    ListView schedList;
+    ArrayAdapter<ScheduleItem> mAdapter;
+    private CalendarView calendarView; //Reference to the calendar view.
     TabLayout days;
 
     @Override
@@ -42,41 +43,43 @@ public class ScheduleActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);
 
-        listSchedule = new ArrayList<>();//Array list to hold fetched items
+        schedList = (ListView)findViewById(R.id.schedView);
 
-        // Initialises the recyclerView
-        recyclerViewSchedule = (RecyclerView) findViewById(R.id.schedRecyclerView);
-        scheduleRecyclerAdapter = new ScheduleRecyclerAdapter(listSchedule, this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewSchedule.setLayoutManager(mLayoutManager);
-        recyclerViewSchedule.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewSchedule.setHasFixedSize(true);
-        recyclerViewSchedule.setAdapter(scheduleRecyclerAdapter);
+        String day = days.getTabAt(days.getSelectedTabPosition()).getText().toString();
 
-        populateListView();
+        days.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String daySelected = days.getTabAt(days.getSelectedTabPosition()).getText().toString();
+                populateListView(daySelected);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        populateListView(day);
     }
 
-    private void populateListView() {
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                listSchedule.clear();
-                int pos = days.getSelectedTabPosition(); //gets the current selected tab position
-                String day = days.getTabAt(pos).getText().toString(); //Returns the text in tab box i.e mon tues wed etc
-                Log.d("Day", day + pos);
-                listSchedule.addAll(database.getScheduleData(day)); //Get up to date data from db
+    private void populateListView(String day) {
 
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                scheduleRecyclerAdapter.notifyDataSetChanged();
-            }
-        }.execute();
-
+        Log.d("", day);
+        ArrayList<ScheduleItem> dbList = database.getScheduleData(day);
+        if(mAdapter==null) {
+            mAdapter = new ScheduleAdapter(this,dbList);
+            schedList.setAdapter(mAdapter);
+        }else{
+            mAdapter.clear();
+            mAdapter.addAll(dbList);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
