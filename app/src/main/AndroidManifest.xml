@@ -18,22 +18,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CalendarActivity" />
+        <activity android:name=".Calendar.CalendarActivity" />
         <activity
-            android:name=".TodoActivity"
+            android:name=".TodoList.TodoActivity"
             android:label="TodoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".TodoList.AddTaskActivity" />
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".Schedule.ScheduleActivity"
             android:label="@string/title_activity_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddToScheduleActivity" />
-        <activity android:name=".AddEventActivity" />
-        <receiver android:name=".AlarmReceiver"
+        <activity android:name=".Schedule.AddToScheduleActivity" />
+        <activity android:name=".Calendar.AddEventActivity" />
+
+        <receiver
+            android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
+
+        <activity
+            android:name=".ImportantDates.ImpGoalsActivity"
+            android:label="@string/title_activity_imp_goals"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ImportantDates.AddGoalActivity" />
+        <activity
+            android:name=".ImportantDates.AddDateActivity"
+            android:label="@string/title_activity_add_date"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,8 @@
-package com.youdo;
+package com.youdo.TodoList;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.youdo.Calendar.CalendarActivity;
+import com.youdo.DatabaseHelper;
+import com.youdo.MainActivity;
+import com.youdo.R;
 
 import java.util.ArrayList;
 
@@ -120,6 +120,12 @@ public class TodoActivity extends AppCompatActivity {
                 //Creates intent to start add task activity.
                 Intent addTask = new Intent(TodoActivity.this, AddTaskActivity.class);
                 startActivity(addTask);
+            }
+
+            if(id == R.id.homeButton){
+                //Creates intent to start add task activity.
+                Intent home = new Intent(TodoActivity.this, MainActivity.class);
+                startActivity(home);
             }
 
             return  super.onOptionsItemSelected(item);

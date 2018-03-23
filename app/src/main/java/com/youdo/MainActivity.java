@@ -6,6 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.youdo.Calendar.CalendarActivity;
+import com.youdo.ImportantDates.ImpGoalsActivity;
+import com.youdo.Schedule.ScheduleActivity;
+import com.youdo.TodoList.TodoActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialises button variables.
         Button buttonCalendar = findViewById(R.id.buttonCalendar);
         Button buttonTodo = findViewById(R.id.buttonTodo);
+        Button buttonDates = findViewById(R.id.buttonDates);
 
         //Function to listen for calendar button being clicked
         buttonCalendar.setOnClickListener(new View.OnClickListener(){
@@ -35,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(todo);
             }
         });
+
+        //Function to listen for to do button being clicked
+        buttonDates.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to to do
+                Intent dates = new Intent(MainActivity.this, ImpGoalsActivity.class);
+                startActivity(dates);
+            }
+        });
+
 
     }
 

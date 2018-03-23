@@ -1,4 +1,4 @@
-package com.youdo;
+package com.youdo.Calendar;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -8,12 +8,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.youdo.AlarmReceiver;
+import com.youdo.DatabaseHelper;
+import com.youdo.MainActivity;
+import com.youdo.R;
 
 import java.util.Calendar;
 
@@ -26,6 +32,7 @@ public class AddEventActivity extends AppCompatActivity {
     EditText editDate, editTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     Calendar calendarReminder = Calendar.getInstance();
+
 
 
     @Override
@@ -55,6 +62,8 @@ public class AddEventActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                         editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        calendarReminder.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                        calendarReminder.set(Calendar.MONTH,monthOfYear);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -116,21 +125,30 @@ public class AddEventActivity extends AppCompatActivity {
 
         database.addEvent(newEvent);
 
-        setAlarm(calendarReminder.getTimeInMillis());
+        setAlarm(calendarReminder.getTimeInMillis(), newEvent);
 
         Intent Calendar = new Intent(AddEventActivity.this, CalendarActivity.class);
         startActivity(Calendar);
     }
 
-    private void setAlarm(long timeInMillis){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlarmReceiver.class);
+    private void setAlarm(long timeInMillis,Event event){
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
-        
-        alarmManager.setRepeating(AlarmManager.RTC, timeInMillis, 1000, pendingIntent);
+        Log.d("Time", "hi" + timeInMillis);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
+        int id = (int) System.currentTimeMillis();
+
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        intent.putExtra("Name", event.getName());
+        intent.putExtra("Desc", event.getDescription());
+        intent.putExtra("Id", id);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),id,intent,0);
+
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+
+        Toast.makeText(this, "Alarm is set: " + id, Toast.LENGTH_SHORT).show();
     }
 
   /*  public void initChannels(Context context) {

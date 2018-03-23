@@ -1,28 +1,24 @@
-package com.youdo;
+package com.youdo.Calendar;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.youdo.DatabaseHelper;
+import com.youdo.MainActivity;
+import com.youdo.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CalendarActivity extends AppCompatActivity {
+public class
+CalendarActivity extends AppCompatActivity {
 
     private DatabaseHelper database;
     ListView eventList;
@@ -91,6 +87,12 @@ public class CalendarActivity extends AppCompatActivity {
             //Creates intent to start add task activity.
             Intent addEvent = new Intent(CalendarActivity.this, AddEventActivity.class);
             startActivity(addEvent);
+        }
+
+        if(id == R.id.homeButton){
+            //Creates intent to start add task activity.
+            Intent home = new Intent(CalendarActivity.this, MainActivity.class);
+            startActivity(home);
         }
 
         return  super.onOptionsItemSelected(item);

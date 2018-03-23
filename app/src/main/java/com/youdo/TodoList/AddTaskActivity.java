@@ -1,4 +1,4 @@
-package com.youdo;
+package com.youdo.TodoList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.youdo.DatabaseHelper;
+import com.youdo.R;
 
 import java.text.SimpleDateFormat;
 

@@ -1,4 +1,4 @@
-package com.youdo;
+package com.youdo.TodoList;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.youdo.R;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 class TaskAdapter extends ArrayAdapter<Task>{
 
     public TaskAdapter(@NonNull Context context, ArrayList<Task> resource) {
-        super(context,R.layout.task_row,resource);
+        super(context, R.layout.task_row,resource);
     }
 
     @Override

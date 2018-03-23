@@ -5,9 +5,15 @@
     tools:context="com.example.aacfl.groupapp.TodoActivity"
     >
     <item
+        android:id="@+id/homeButton"
+        android:icon="?android:attr/homeAsUpIndicator"
+        android:title="Home"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/addTask"
         android:icon="@android:drawable/ic_input_add"
         android:title="Add Task"
         app:showAsAction="always" />
+
 
 </menu>
