@@ -21,7 +21,7 @@
     <Button
         android:id="@+id/buttonAddGoal"
         android:layout_width="200dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="262dp"
