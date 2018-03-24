@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:background="#725273"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/imageView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69">
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonCalendar3"
+        android:layout_width="350dp"
+        android:layout_height="35dp"
+        android:layout_alignBaseline="@+id/buttonCalendar"
+        android:layout_alignBottom="@+id/buttonCalendar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:background="#725273"
+        android:elevation="17dp"
+        android:paddingRight="40dp"
+        android:text="You:Do"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="42dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:elevation="48dp"
+        app:layout_constraintStart_toStartOf="@+id/buttonCalendar3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_youdo" />
+
+</android.support.constraint.ConstraintLayout>
