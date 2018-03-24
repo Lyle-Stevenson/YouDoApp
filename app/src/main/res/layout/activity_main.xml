@@ -7,41 +7,135 @@
     tools:context="com.youdo.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
+    <!-- Header aligned to top -->
+    <include layout="@layout/header" />
+
+    <!-- Footer aligned to bottom -->
+    <include layout="@layout/footer" />
+
+    <!-- Content below header and above footer -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:gravity="center">
+
+    </RelativeLayout>
+
     <Button
         android:id="@+id/buttonSchedule"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignStart="@+id/buttonCalendar"
-        android:layout_below="@+id/buttonTodo"
-        android:layout_marginTop="100dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="68dp"
+        android:background="#9e809f"
         android:onClick="buttonSchedule"
-        android:text="SCHEDULE" />
+        android:paddingRight="40dp"
+        android:text="Schedule"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="#2f1a30"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonTodo"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignBottom="@+id/buttonCalendar"
-        android:layout_marginStart="44dp"
-        android:layout_toEndOf="@+id/buttonCalendar"
-        android:text="TODO LIST" />
+        android:layout_height="80dp"
+        android:layout_above="@+id/buttonDates"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="31dp"
+        android:background="#9e809f"
+        android:paddingRight="40dp"
+        android:text="To Do List"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="#2f1a30"
+        android:textStyle="bold"
+        tools:background="#b68ec0" />
 
     <Button
         android:id="@+id/buttonCalendar"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
+        android:layout_above="@+id/buttonTodo"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="64dp"
-        android:text="CALENDAR" />
+        android:layout_marginBottom="23dp"
+        android:background="#eadbe8"
+        android:paddingRight="40dp"
+        android:text="Calendar"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="#2f1a30"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonDates"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignStart="@+id/buttonTodo"
+        android:layout_height="80dp"
+        android:layout_above="@+id/buttonSchedule"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="26dp"
+        android:background="#eadbe8"
+        android:paddingRight="40dp"
+        android:text="Important Dates"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="#2f1a30"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/imageView4"
         android:layout_alignTop="@+id/buttonSchedule"
-        android:text="IMPORTANT DATES" />
+        android:layout_marginTop="14dp"
+        android:adjustViewBounds="true"
+        android:elevation="24dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/user" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_alignTop="@+id/buttonDates"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:elevation="24dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/book" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/buttonTodo"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_marginBottom="19dp"
+        android:adjustViewBounds="true"
+        android:elevation="24dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/check" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/buttonCalendar"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="58dp"
+        android:adjustViewBounds="true"
+        android:elevation="24dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/calendar" />
 
 </RelativeLayout>
