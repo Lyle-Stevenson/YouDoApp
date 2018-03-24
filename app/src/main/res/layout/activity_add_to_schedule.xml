@@ -5,63 +5,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.youdo.Schedule.AddToScheduleActivity">
+    <!-- Header aligned to top -->
+    <include layout="@layout/header" />
 
-    <EditText
+    <!-- Footer aligned to bottom -->
+    <include layout="@layout/footer" />
 
-        android:id="@+id/editScheduleName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Name" />
+    <!-- Content below header and above footer -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:gravity="center">
 
-    <EditText
+        <EditText
 
-        android:id="@+id/editScheduleEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonScheduleEndTime"
-        android:layout_alignParentStart="true"
-        android:hint="Enter End Time" />
+            android:id="@+id/editScheduleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonScheduleEndTime"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="18dp"
+            android:hint="Enter Name" />
 
-    <EditText
+        <Button
 
-        android:id="@+id/editScheduleStartTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonAddSchedule"
-        android:layout_alignEnd="@+id/editScheduleEndTime"
-        android:layout_marginBottom="64dp"
-        android:hint="Enter Start Time" />
+            android:id="@+id/buttonScheduleEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <Button
+            android:layout_alignStart="@+id/buttonScheduleStartTime"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:onClick="setScheduleEndTimeClicked"
+            android:text="Select End Time"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
 
-        android:id="@+id/buttonAddSchedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="addScheduleButtonClicked"
-        android:text="Add" />
+        <EditText
 
-    <Button
+            android:id="@+id/editScheduleEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/buttonScheduleEndTime"
+            android:hint="Enter End Time" />
 
-        android:id="@+id/buttonScheduleStartTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonScheduleEndTime"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="48dp"
-        android:onClick="setScheduleStartTimeClicked"
-        android:text="SELECT START TIME" />
+        <EditText
 
-    <Button
+            android:id="@+id/editScheduleStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editScheduleEndTime"
+            android:layout_below="@+id/buttonScheduleEndTime"
+            android:hint="Enter Start Time" />
 
-        android:id="@+id/buttonScheduleEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonAddSchedule"
-        android:layout_marginBottom="23dp"
-        android:layout_toEndOf="@+id/buttonAddSchedule"
-        android:onClick="setScheduleEndTimeClicked"
-        android:text="SELECT ENDTIME" />
+        <Button
+
+            android:id="@+id/buttonScheduleStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/editScheduleStartTime"
+            android:layout_toEndOf="@+id/editScheduleStartTime"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:onClick="setScheduleStartTimeClicked"
+            android:text="Select Start Time"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+        <Button
+
+            android:id="@+id/buttonAddSchedule"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/editScheduleStartTime"
+            android:layout_marginTop="48dp"
+            android:layout_toStartOf="@+id/buttonScheduleStartTime"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:onClick="addScheduleButtonClicked"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 </RelativeLayout>

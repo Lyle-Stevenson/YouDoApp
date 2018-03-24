@@ -3,13 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Header aligned to top -->
+    <include layout="@layout/header" />
+
+    <!-- Footer aligned to bottom -->
+    <include layout="@layout/footer" />
+
+    <!-- Content below header and above footer -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:gravity="center">
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/datesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonAddDate"
@@ -20,5 +37,5 @@
         android:layout_marginEnd="22dp"
         android:layout_marginTop="400dp"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/colorPrimaryDark" />
+        app:backgroundTint="#725273" />
 </RelativeLayout>
