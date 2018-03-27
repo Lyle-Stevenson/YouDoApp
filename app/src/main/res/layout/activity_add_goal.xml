@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +7,18 @@
     tools:context="com.youdo.TodoList.AddTaskActivity"
     tools:layout_editor_absoluteY="25dp">
     <!-- Header aligned to top -->
-    <include
-        android:id="@+id/include"
-        layout="@layout/header" />
+    <include layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include10" />
 
     <!-- Footer aligned to bottom -->
-    <include
-        android:id="@+id/include2"
-        layout="@layout/footer" />
+    <include layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        />
 
     <!-- Content below header and above footer -->
 
@@ -22,14 +26,11 @@
         android:id="@+id/buttonAddGoal"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="262dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_bg_rounded_corners"
 
+        android:layout_below="@+id/editGoalName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/button_bg_rounded_corners"
         android:onClick="addGoalButtonClicked"
         android:text="Add Goal"
         android:textAllCaps="false"
@@ -46,12 +47,9 @@
         android:id="@+id/editGoalName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="58dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="114dp"
+        android:layout_alignStart="@+id/buttonAddGoal"
+        android:layout_below="@+id/include10"
+        android:layout_marginTop="110dp"
         android:hint="Enter Goal"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddGoal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,4 +64,4 @@
         app:layout_constraintGuide_begin="20dp" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

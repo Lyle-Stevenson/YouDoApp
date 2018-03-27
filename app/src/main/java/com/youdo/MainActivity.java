@@ -3,6 +3,7 @@ package com.youdo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,6 +24,48 @@ public class MainActivity extends AppCompatActivity {
         Button buttonCalendar = findViewById(R.id.buttonCalendar);
         Button buttonTodo = findViewById(R.id.buttonTodo);
         Button buttonDates = findViewById(R.id.buttonDates);
+
+        Button buttonHome = findViewById(R.id.homeButton);
+        Button footerCalendar = findViewById(R.id.footerCalendar);
+        Button footerTodo = findViewById(R.id.footerTodo);
+        Button footerImp = findViewById(R.id.footerImp);
+        Button footerSched = findViewById(R.id.footerSched);
+
+        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
 
         //Function to listen for calendar button being clicked
         buttonCalendar.setOnClickListener(new View.OnClickListener(){

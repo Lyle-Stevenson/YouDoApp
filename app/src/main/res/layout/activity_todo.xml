@@ -6,49 +6,39 @@
     android:layout_height="match_parent"
     tools:context="com.youdo.TodoList.TodoActivity">
     <!-- Header aligned to top -->
-    <include layout="@layout/header" />
-
-    <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer" />
-
-    <!-- Content below header and above footer -->
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/header"
-        android:gravity="center">
-
-    </RelativeLayout>
-    <android.support.design.widget.AppBarLayout
+    <include layout="@layout/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout3">
+        android:id="@+id/include1"
+         />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#725273"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <!-- Footer aligned to bottom -->
+    <include layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/include11"
+        />
 
-        <Spinner
-            android:id="@+id/filter_Drop_Down"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_weight="1"
-            android:background="#725273"
-            android:entries="@id/category_drop_down" />
+    <!-- Content below header and above footer -->
 
-    </android.support.design.widget.AppBarLayout>
+    <Spinner
+        android:id="@+id/filter_Drop_Down"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include1"
+        android:layout_weight="1"
+        android:background="#725273"
+        android:entries="@id/category_drop_down" />
 
     <ListView
         android:id="@+id/todo_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/include11"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/appBarLayout3"
-        android:layout_marginBottom="60dp" />
+        android:layout_below="@+id/filter_Drop_Down" />
 
 </RelativeLayout>

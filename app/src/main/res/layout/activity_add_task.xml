@@ -1,47 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.youdo.TodoList.AddTaskActivity">
     <!-- Header aligned to top -->
-    <include
-        android:id="@+id/include6"
-        layout="@layout/header" />
+    <include layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include10" />
 
     <!-- Footer aligned to bottom -->
-    <include
-        android:id="@+id/include7"
-        layout="@layout/footer" />
+    <include layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/include6" />
 
     <!-- Content below header and above footer -->
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/header"
-        android:gravity="center">
 
-        <EditText
-            android:id="@+id/editTaskName"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="84dp"
-            android:hint="Enter Task"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="122dp" />
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/editTaskName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include10"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:hint="Enter Task" />
 
     <Button
         android:id="@+id/buttonAddTask"
         android:layout_width="179dp"
         android:layout_height="42dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="368dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/button_bg_rounded_corners"
         android:onClick="addTaskButtonClicked"
         android:text="Add task"
@@ -55,7 +49,9 @@
         android:id="@+id/category_drop_down"
         android:layout_width="177dp"
         android:layout_height="44dp"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/editTaskName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
         android:entries="@id/category_drop_down"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddTask"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,4 +61,4 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

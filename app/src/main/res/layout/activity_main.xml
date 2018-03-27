@@ -8,29 +8,22 @@
     tools:layout_editor_absoluteY="81dp">
 
     <!-- Header aligned to top -->
-    <include layout="@layout/header" />
+    <include layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer" />
 
     <!-- Content below header and above footer -->
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/header"
-        android:gravity="center">
-
-    </RelativeLayout>
 
     <Button
         android:id="@+id/buttonSchedule"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/include3"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="78dp"
         android:background="#9e809f"
         android:onClick="buttonSchedule"
         android:paddingRight="40dp"
@@ -42,7 +35,7 @@
 
     <Button
         android:id="@+id/buttonTodo"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/buttonDates"
         android:layout_alignParentEnd="true"
@@ -59,7 +52,7 @@
 
     <Button
         android:id="@+id/buttonCalendar"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/buttonTodo"
         android:layout_alignParentEnd="true"
@@ -75,7 +68,7 @@
 
     <Button
         android:id="@+id/buttonDates"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/buttonSchedule"
         android:layout_alignParentEnd="true"
@@ -137,5 +130,13 @@
         android:elevation="24dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/calendar" />
+
+    <include
+        layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/include3" />
 
 </RelativeLayout>

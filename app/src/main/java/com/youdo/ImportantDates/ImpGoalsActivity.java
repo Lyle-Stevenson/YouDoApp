@@ -43,9 +43,6 @@ public class ImpGoalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imp_goals);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         goalList = (ListView) findViewById(R.id.goalsList);

@@ -30,10 +30,6 @@ CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        //Adds the toolbar to activity
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         database = new DatabaseHelper(this);//Database reference
 
         eventList = (ListView) findViewById(R.id.eventView);
