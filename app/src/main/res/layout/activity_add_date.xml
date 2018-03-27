@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        />
+        android:id="@+id/include" />
 
     <!-- Content below header and above footer -->
 
@@ -34,8 +34,9 @@
         android:id="@+id/buttonAddImpDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editDateDate"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="88dp"
         android:background="@drawable/button_bg_rounded_corners"
         android:onClick="addImpDateButtonClicked"
         android:text="Add"
@@ -65,5 +66,15 @@
         android:textColor="#2f1a30"
         android:textSize="14sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editDateDate"
+        android:layout_marginTop="97dp"
+        android:elevation="-10dp"
+        app:srcCompat="@drawable/image2" />
 
 </RelativeLayout>
