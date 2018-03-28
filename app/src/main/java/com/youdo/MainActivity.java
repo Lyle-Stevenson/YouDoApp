@@ -25,45 +25,45 @@ public class MainActivity extends AppCompatActivity {
         Button buttonTodo = findViewById(R.id.buttonTodo);
         Button buttonDates = findViewById(R.id.buttonDates);
 
-        Button buttonHome = findViewById(R.id.homeButton);
+        Button buttonHome = findViewById(R.id.buttonHome);
         Button footerCalendar = findViewById(R.id.footerCalendar);
         Button footerTodo = findViewById(R.id.footerTodo);
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
-        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+        buttonHome.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent home = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(home);
+            }
+        });
+        footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
-        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+        footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 //Creates and intent to change activity from main to calendar
-                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(calender);
+                Intent todo = new Intent(MainActivity.this, TodoActivity.class);
+                startActivity(todo);
             }
         });
-        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+        footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 //Creates and intent to change activity from main to calendar
-                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(calender);
+                Intent imp = new Intent(MainActivity.this, ImpGoalsActivity.class);
+                startActivity(imp);
             }
         });
-        buttonCalendar.setOnClickListener(new View.OnClickListener(){
+        footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 //Creates and intent to change activity from main to calendar
-                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(calender);
-            }
-        });
-        buttonCalendar.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
-                Intent calender = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(calender);
+                Intent sched = new Intent(MainActivity.this, ScheduleActivity.class);
+                startActivity(sched);
             }
         });
 
