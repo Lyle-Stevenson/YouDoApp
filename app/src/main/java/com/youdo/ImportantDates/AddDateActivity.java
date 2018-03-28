@@ -17,7 +17,10 @@ import com.youdo.Calendar.AddEventActivity;
 import com.youdo.Calendar.CalendarActivity;
 import com.youdo.Calendar.Event;
 import com.youdo.DatabaseHelper;
+import com.youdo.MainActivity;
 import com.youdo.R;
+import com.youdo.Schedule.ScheduleActivity;
+import com.youdo.TodoList.TodoActivity;
 
 import java.util.Calendar;
 
@@ -38,6 +41,48 @@ public class AddDateActivity extends AppCompatActivity {
 
         buttonDate=(Button)findViewById(R.id.buttonDateDate);
         editDate=(EditText)findViewById(R.id.editDateDate);
+
+        Button buttonHome = findViewById(R.id.buttonHome);
+        Button footerCalendar = findViewById(R.id.footerCalendar);
+        Button footerTodo = findViewById(R.id.footerTodo);
+        Button footerImp = findViewById(R.id.footerImp);
+        Button footerSched = findViewById(R.id.footerSched);
+
+        buttonHome.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent home = new Intent(AddDateActivity.this, MainActivity.class);
+                startActivity(home);
+            }
+        });
+        footerCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(AddDateActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        footerTodo.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent todo = new Intent(AddDateActivity.this, TodoActivity.class);
+                startActivity(todo);
+            }
+        });
+        footerImp.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent imp = new Intent(AddDateActivity.this, ImpGoalsActivity.class);
+                startActivity(imp);
+            }
+        });
+        footerSched.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent sched = new Intent(AddDateActivity.this, ScheduleActivity.class);
+                startActivity(sched);
+            }
+        });
 
     }
 

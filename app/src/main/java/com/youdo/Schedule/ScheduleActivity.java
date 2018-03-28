@@ -8,14 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.youdo.Calendar.CalendarActivity;
 import com.youdo.DatabaseHelper;
+import com.youdo.ImportantDates.ImpGoalsActivity;
 import com.youdo.MainActivity;
 import com.youdo.R;
+import com.youdo.TodoList.TodoActivity;
 
 import java.util.ArrayList;
 
@@ -40,6 +44,48 @@ public class ScheduleActivity extends AppCompatActivity {
         schedList = (ListView)findViewById(R.id.schedView);
 
         String day = days.getTabAt(days.getSelectedTabPosition()).getText().toString();
+
+        Button buttonHome = findViewById(R.id.buttonHome);
+        Button footerCalendar = findViewById(R.id.footerCalendar);
+        Button footerTodo = findViewById(R.id.footerTodo);
+        Button footerImp = findViewById(R.id.footerImp);
+        Button footerSched = findViewById(R.id.footerSched);
+
+        buttonHome.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent home = new Intent(ScheduleActivity.this, MainActivity.class);
+                startActivity(home);
+            }
+        });
+        footerCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(ScheduleActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        footerTodo.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent todo = new Intent(ScheduleActivity.this, TodoActivity.class);
+                startActivity(todo);
+            }
+        });
+        footerImp.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent imp = new Intent(ScheduleActivity.this, ImpGoalsActivity.class);
+                startActivity(imp);
+            }
+        });
+        footerSched.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent sched = new Intent(ScheduleActivity.this, ScheduleActivity.class);
+                startActivity(sched);
+            }
+        });
 
         days.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

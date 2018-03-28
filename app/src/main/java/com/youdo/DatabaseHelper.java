@@ -233,7 +233,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public ArrayList getTaskData(String selectedFilter){
         SQLiteDatabase db = this.getReadableDatabase();
-String selectQuery;
+    String selectQuery;
 
         if(selectedFilter == ""){
         selectQuery = "SELECT  * FROM " + TABLE_TODO;
@@ -255,6 +255,24 @@ String selectQuery;
         data.close();
         db.close();
         return tasksList;
+    }
+
+    public ArrayList getCat(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT DISTINCT " +  TASK_CAT_COL + " FROM " + TABLE_TODO;
+
+
+        Cursor data = db.rawQuery(selectQuery,null);
+
+        //Get tasks from the database
+        ArrayList<String> catList = new ArrayList<>();
+        while(data.moveToNext()){
+            catList.add(data.getString(data.getColumnIndex("category")));
+        }
+        data.close();
+        db.close();
+        return catList;
     }
 
     public ArrayList getEventData(String date){

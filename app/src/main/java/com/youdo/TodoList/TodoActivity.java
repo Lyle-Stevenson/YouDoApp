@@ -2,6 +2,7 @@ package com.youdo.TodoList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -10,14 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.youdo.Calendar.CalendarActivity;
 import com.youdo.DatabaseHelper;
+import com.youdo.ImportantDates.AddGoalActivity;
+import com.youdo.ImportantDates.ImpGoalsActivity;
 import com.youdo.MainActivity;
 import com.youdo.R;
+import com.youdo.Schedule.ScheduleActivity;
 
 import java.util.ArrayList;
 
@@ -44,11 +49,63 @@ public class TodoActivity extends AppCompatActivity {
         //Creates the dropdown menu for the filter
         categoryFilter= findViewById(R.id.filter_Drop_Down);
 
+
         //fills drop down list with categories
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(TodoActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.categories));
+                android.R.layout.simple_list_item_1, database.getCat());
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoryFilter.setAdapter(myAdapter);
+
+        Button buttonHome = findViewById(R.id.buttonHome);
+        Button footerCalendar = findViewById(R.id.footerCalendar);
+        Button footerTodo = findViewById(R.id.footerTodo);
+        Button footerImp = findViewById(R.id.footerImp);
+        Button footerSched = findViewById(R.id.footerSched);
+
+        buttonHome.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent home = new Intent( TodoActivity.this, MainActivity.class);
+                startActivity(home);
+            }
+        });
+        footerCalendar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent calender = new Intent(TodoActivity.this, CalendarActivity.class);
+                startActivity(calender);
+            }
+        });
+        footerTodo.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent todo = new Intent(TodoActivity.this, TodoActivity.class);
+                startActivity(todo);
+            }
+        });
+        footerImp.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent imp = new Intent(TodoActivity.this, ImpGoalsActivity.class);
+                startActivity(imp);
+            }
+        });
+        footerSched.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to calendar
+                Intent sched = new Intent(TodoActivity.this, ScheduleActivity.class);
+                startActivity(sched);
+            }
+        });
+
+        FloatingActionButton addGoal = findViewById(R.id.buttonAddTask);
+        addGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addTask = new Intent(TodoActivity.this, AddTaskActivity.class);
+                startActivity(addTask);
+            }
+        });
 
         categoryFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
