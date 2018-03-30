@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.youdo.ImportantDates.ImpGoalsActivity;
 import com.youdo.MainActivity;
 import com.youdo.R;
 import com.youdo.Schedule.ScheduleActivity;
+import com.youdo.TodoList.AddTaskActivity;
 import com.youdo.TodoList.TodoActivity;
 
 import java.util.Calendar;

@@ -2,6 +2,7 @@ package com.youdo.Schedule;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
+import com.youdo.Calendar.AddEventActivity;
 import com.youdo.Calendar.CalendarActivity;
 import com.youdo.DatabaseHelper;
 import com.youdo.ImportantDates.ImpGoalsActivity;
@@ -84,6 +86,17 @@ public class ScheduleActivity extends AppCompatActivity {
                 //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(ScheduleActivity.this, ScheduleActivity.class);
                 startActivity(sched);
+            }
+        });
+
+        FloatingActionButton addSched = findViewById(R.id.buttonAddSched);
+        addSched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = days.getSelectedTabPosition();
+                Intent addScheduleItem = new Intent(ScheduleActivity.this, AddToScheduleActivity.class);
+                addScheduleItem.putExtra("Day", days.getTabAt(pos).getText().toString()); //Passes the current day seleceted data in the intent to add schedule activity.
+                startActivity(addScheduleItem);
             }
         });
 

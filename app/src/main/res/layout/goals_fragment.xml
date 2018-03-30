@@ -14,10 +14,10 @@
     <ListView
         android:id="@+id/goalsList"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonAddGoal"

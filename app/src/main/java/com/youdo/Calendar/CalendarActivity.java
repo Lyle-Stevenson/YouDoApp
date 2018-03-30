@@ -3,6 +3,7 @@ package com.youdo.Calendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import com.youdo.ImportantDates.ImpGoalsActivity;
 import com.youdo.MainActivity;
 import com.youdo.R;
 import com.youdo.Schedule.ScheduleActivity;
+import com.youdo.TodoList.AddTaskActivity;
 import com.youdo.TodoList.TodoActivity;
 
 import java.util.ArrayList;
@@ -89,6 +91,15 @@ CalendarActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 String date = day + "/" + (month+1) + "/" + year; //Gets a string format of the date selected to pass to db
                 populateListView(date); //poplates list with events from current day
+            }
+        });
+
+        FloatingActionButton addEvent = findViewById(R.id.buttonAddEvent);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addEvent = new Intent(CalendarActivity.this, AddEventActivity.class);
+                startActivity(addEvent);
             }
         });
 
