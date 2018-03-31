@@ -20,34 +20,40 @@
         app:layout_constraintVertical_bias="0.69">
 
 
+        <Button
+            android:id="@+id/buttonHome"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_alignBaseline="@+id/buttonCalendar"
+            android:layout_alignBottom="@+id/buttonCalendar"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:background="#725273"
+            android:elevation="17dp"
+            android:fontFamily="serif"
+            android:lineSpacingExtra="8sp"
+            android:paddingRight="40dp"
+            android:text="You:Do"
+            android:textAlignment="viewEnd"
+            android:textAllCaps="false"
+            android:textColor="#949394"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="2dp" />
 
-    <Button
-        android:id="@+id/buttonHome"
-        android:layout_width="350dp"
-        android:layout_height="35dp"
-        android:layout_alignBaseline="@+id/buttonCalendar"
-        android:layout_alignBottom="@+id/buttonCalendar"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:background="#725273"
-        android:elevation="17dp"
-        android:paddingRight="40dp"
-        android:text="You:Do"
-        android:textAlignment="viewEnd"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="2dp" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="42dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:elevation="48dp"
-        app:layout_constraintStart_toStartOf="@+id/buttonHome"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_youdo" />
+        <ImageView
+            android:id="@+id/logoHeader"
+            android:layout_width="42dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="12dp"
+            android:elevation="48dp"
+            app:layout_constraintStart_toStartOf="@+id/buttonHome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_youdo" />
 
 </RelativeLayout>

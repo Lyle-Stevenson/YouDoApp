@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.youdo.TodoList.TodoActivity">
     <!-- Header aligned to top -->
+    <Button
+        android:id="@+id/todoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/filter_Drop_Down"
+        android:background="#eadbe8"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:text="To Do List"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#725273"
+        android:textColorLink="#725273"
+        android:textStyle="bold" />
+
     <include layout="@layout/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,13 +29,13 @@
          />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+    <include
         android:id="@+id/include11"
-        />
+        layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp" />
 
     <!-- Content below header and above footer -->
 
@@ -36,10 +52,11 @@
     <ListView
         android:id="@+id/todo_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="406dp"
         android:layout_above="@+id/include11"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/filter_Drop_Down" />
+        android:layout_below="@+id/filter_Drop_Down"
+        android:layout_marginTop="41dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonAddTask"

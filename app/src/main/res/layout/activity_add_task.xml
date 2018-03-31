@@ -4,8 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/whitepencil"
     tools:context="com.youdo.TodoList.AddTaskActivity">
     <!-- Header aligned to top -->
+    <Button
+        android:id="@+id/addTaskTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include10"
+        android:background="#eadbe8"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:text="Add Task"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#725273"
+        android:textColorLink="#725273"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/editTaskCat"
         android:layout_width="200dp"
@@ -20,12 +37,13 @@
         android:id="@+id/include10" />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer"
+    <include
+        android:id="@+id/include6"
+        layout="@layout/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/include6" />
+        android:layout_marginBottom="0dp" />
 
     <!-- Content below header and above footer -->
 
@@ -33,9 +51,9 @@
         android:id="@+id/editTaskName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/include10"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="121dp"
         android:hint="Enter Task" />
 
     <Button

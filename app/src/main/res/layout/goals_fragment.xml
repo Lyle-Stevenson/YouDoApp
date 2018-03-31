@@ -11,22 +11,21 @@
 
     <!-- Content below header and above footer -->
 
-    <ListView
-        android:id="@+id/goalsList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonAddGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/goalsList"
-        android:layout_marginBottom="23dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginTop="400dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="238dp"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#725273" />
+
+    <ListView
+        android:id="@+id/goalsList"
+        android:layout_width="match_parent"
+        android:layout_height="523dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
 </RelativeLayout>

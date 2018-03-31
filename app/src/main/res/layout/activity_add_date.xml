@@ -4,7 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/abstractionism"
     tools:context="com.youdo.ImportantDates.AddDateActivity">
+
+    <Button
+        android:id="@+id/addDateTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include10"
+        android:background="#eadbe8"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:text="Add Date"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#725273"
+        android:textColorLink="#725273"
+        android:textStyle="bold" />
 
     <include layout="@layout/header"
         android:layout_width="match_parent"
@@ -12,12 +29,13 @@
         android:id="@+id/include10" />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer"
+    <include
+        android:id="@+id/include"
+        layout="@layout/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/include" />
+        android:layout_marginBottom="0dp" />
 
     <!-- Content below header and above footer -->
 
@@ -27,12 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="140dp"
         android:hint="Enter Name" />
 
     <Button
         android:id="@+id/buttonAddImpDate"
-        android:layout_width="wrap_content"
+        android:layout_width="357dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editDateDate"
         android:layout_centerHorizontal="true"
@@ -53,7 +71,7 @@
 
     <Button
         android:id="@+id/buttonDateDate"
-        android:layout_width="wrap_content"
+        android:layout_width="178dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editDateDate"
         android:layout_toEndOf="@+id/editDateDate"

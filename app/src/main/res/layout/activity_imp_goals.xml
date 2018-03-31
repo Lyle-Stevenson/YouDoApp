@@ -6,20 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+
     tools:context="com.youdo.ImportantDates.ImpGoalsActivity">
     <!-- Header aligned to top -->
+    <Button
+        android:id="@+id/impGoalsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include9"
+        android:background="#eadbe8"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:text="Important dates"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#725273"
+        android:textColorLink="#725273"
+        android:textStyle="bold" />
+
     <include layout="@layout/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/include9" />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer"
+    <include
+        android:id="@+id/include8"
+        layout="@layout/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/include8" />
+        android:layout_marginBottom="0dp" />
 
     <!-- Content below header and above footer -->
 
@@ -28,16 +46,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/include9"
+        android:layout_below="@+id/impGoalsTitle"
         android:background=" #725273"></android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/include8"
+        android:layout_height="466dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tabs"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

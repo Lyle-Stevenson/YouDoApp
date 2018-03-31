@@ -21,16 +21,18 @@
         android:id="@+id/buttonSchedule"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_above="@+id/include3"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="78dp"
+        android:layout_marginBottom="85dp"
         android:background="#9e809f"
+        android:lineSpacingExtra="24sp"
         android:onClick="buttonSchedule"
         android:paddingRight="40dp"
         android:text="Schedule"
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="#2f1a30"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <Button
@@ -47,13 +49,14 @@
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="#2f1a30"
+        android:textSize="24sp"
         android:textStyle="bold"
         tools:background="#b68ec0" />
 
     <Button
         android:id="@+id/buttonCalendar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="84dp"
         android:layout_above="@+id/buttonTodo"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
@@ -64,6 +67,7 @@
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="#2f1a30"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <Button
@@ -80,6 +84,7 @@
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="#2f1a30"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <ImageView
@@ -132,11 +137,11 @@
         app:srcCompat="@drawable/calendar" />
 
     <include
+        android:id="@+id/include3"
         layout="@layout/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/include3" />
+        android:layout_marginBottom="0dp" />
 
 </RelativeLayout>

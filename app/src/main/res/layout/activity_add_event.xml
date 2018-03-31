@@ -4,7 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/notebookone"
+
+
+
     tools:context="com.youdo.Calendar.AddEventActivity">
+
+    <Button
+        android:id="@+id/addEventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include10"
+        android:background="#eadbe8"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:text="Add Event"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#725273"
+        android:textColorLink="#725273"
+        android:textStyle="bold" />
 
     <include layout="@layout/header"
         android:layout_width="match_parent"
@@ -12,20 +32,20 @@
         android:id="@+id/include10" />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer"
+    <include
+        android:id="@+id/include2"
+        layout="@layout/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/include2" />
+        android:layout_marginBottom="0dp" />
+
     <Button
         android:id="@+id/buttonEventTime"
-        android:layout_width="wrap_content"
+        android:layout_width="174dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="95dp"
-        android:layout_marginTop="197dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/editEventDate"
         android:background="@drawable/button_bg_rounded_corners"
         android:onClick="setEventTimeClicked"
         android:text="Select Time"
@@ -49,16 +69,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="101dp"
         android:hint="Enter Name" />
 
     <Button
         android:id="@+id/buttonAddEvent"
-        android:layout_width="wrap_content"
+        android:layout_width="307dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/buttonEventTime"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="170dp"
+        android:layout_marginStart="40dp"
         android:background="@drawable/button_bg_rounded_corners"
         android:onClick="addEventButtonClicked"
         android:text="Add"
@@ -76,7 +97,7 @@
 
     <Button
         android:id="@+id/buttonEventDate"
-        android:layout_width="wrap_content"
+        android:layout_width="174dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editEventDate"
         android:layout_toEndOf="@+id/editEventDate"

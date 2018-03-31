@@ -4,29 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/notebook"
     tools:context="com.youdo.Calendar.CalendarActivity">
     <!-- Header aligned to top -->
+
+    <Button
+        android:id="@+id/CalendarTitle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include4"
+        android:layout_marginStart="0dp"
+        android:background="#eadbe8"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:text="Calendar"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#725273"
+        android:textColorLink="#725273"
+        android:textStyle="bold" />
+
     <include layout="@layout/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/include4" />
 
     <!-- Footer aligned to bottom -->
-    <include layout="@layout/footer"
+    <include
+        layout="@layout/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginBottom="0dp" />
 
     <!-- Content below header and above footer -->
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="299dp"
+        android:layout_height="253dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/include4" />
+        android:layout_below="@+id/include4"
+        android:layout_marginTop="46dp"
+        android:selectedWeekBackgroundColor="#725273" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonAddEvent"
