@@ -33,11 +33,6 @@ public class AddToScheduleActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);
 
-        buttonEndTime=(Button)findViewById(R.id.buttonScheduleEndTime);
-        buttonStartTime=(Button)findViewById(R.id.buttonScheduleStartTime);
-        editStartTime=(EditText)findViewById(R.id.editScheduleStartTime);
-        editEndTime=(EditText)findViewById(R.id.editScheduleEndTime);
-
         Button buttonHome = findViewById(R.id.buttonHome);
         Button footerCalendar = findViewById(R.id.footerCalendar);
         Button footerTodo = findViewById(R.id.footerTodo);
@@ -81,46 +76,6 @@ public class AddToScheduleActivity extends AppCompatActivity {
         });
     }
 
-    public void setScheduleEndTimeClicked(View view) {
-        // Get Current Time
-        final Calendar c = Calendar.getInstance();
-        endHour = c.get(Calendar.HOUR_OF_DAY);
-        endMinute = c.get(Calendar.MINUTE);
-
-        // Launch Time Picker Dialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
-
-                        editEndTime.setText(hourOfDay + ":" + minute);
-                    }
-                }, endHour, endMinute, false);
-        timePickerDialog.show();
-    }
-
-    public void setScheduleStartTimeClicked(View view) {
-        // Get Current Time
-        final Calendar c = Calendar.getInstance();
-        startHour = c.get(Calendar.HOUR_OF_DAY);
-        startMinute = c.get(Calendar.MINUTE);
-
-        // Launch Time Picker Dialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
-
-                        editStartTime.setText(hourOfDay + ":" + minute);
-                    }
-                }, startHour, startMinute, false);
-        timePickerDialog.show();
-    }
-
     public void addScheduleButtonClicked(View view) {
         //adds reference to the text box on activity
         editName = (EditText) findViewById(R.id.editScheduleName);
@@ -128,23 +83,17 @@ public class AddToScheduleActivity extends AppCompatActivity {
         //Returns the name to the text in the box
         String name = editName.getText().toString();
 
-        //adds reference to the text box on activity
-        editStartTime = (EditText) findViewById(R.id.editScheduleStartTime);
+        //Returns the name to the text in the box
+        String startTime = getIntent().getStringExtra("Start");
 
         //Returns the name to the text in the box
-        String startTime = editStartTime.getText().toString();
-
-        //adds reference to the text box on activity
-        editEndTime = (EditText) findViewById(R.id.editScheduleEndTime);
-
-        //Returns the name to the text in the box
-        String endTime = editEndTime.getText().toString();
+        String endTime = getIntent().getStringExtra("End");
 
         ScheduleItem newItem = new ScheduleItem(name, startTime, endTime);
 
         String day = getIntent().getStringExtra("Day");// Fetechs the day data passed in intent
 
-        database.addScheduleItem(newItem, day);
+        database.updateScheduleItem(newItem, day);
 
         Intent schedule = new Intent(AddToScheduleActivity.this, ScheduleActivity.class);
         startActivity(schedule);

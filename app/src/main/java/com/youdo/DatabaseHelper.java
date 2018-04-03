@@ -38,8 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DATE_COL = "date";
     private static final String DESCR_COL = "description";
     private static final String TIME_COL = "time";
-    private static final String END_TIME_COL = "start_time";
-    private static final String START_TIME_COL = "end_time";
+    private static final String END_TIME_COL = "end_time";
+    private static final String START_TIME_COL = "start_time";
     private static final String DAY_COL = "day";
     private static final String TASK_CAT_COL = "category";
 
@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     // Event table create statement
     private static final String CREATE_TABLE_EVENTS = "CREATE TABLE "
             + TABLE_EVENT+ "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
-            + " TEXT," + DATE_COL + " TEXT," + TIME_COL + " TEXT," + DESCR_COL + " TEXT" + ")";
+            + " TEXT," + DATE_COL + " TEXT," + TIME_COL + " TEXT" + ")";
 
     // Event table create statement
     private static final String CREATE_TABLE_DATES = "CREATE TABLE "
@@ -217,7 +217,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         ContentValues values = new ContentValues();
         values.put(NAME_COL, event.getName());
-        values.put(DESCR_COL, event.getDescription());
         values.put(DATE_COL, event.getDate());
         values.put(TIME_COL, event.getTime());
 
@@ -288,7 +287,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         while(data.moveToNext()){
             Event event = new Event();
             event.setName(data.getString(data.getColumnIndex("name")));
-            event.setDescription(data.getString(data.getColumnIndex("description")));
             event.setTime(data.getString(data.getColumnIndex("time")));
             event.setDate(data.getString(data.getColumnIndex("date")));
             eventList.add(event);
@@ -316,6 +314,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }else{
             return true;
         }
+    }
+
+    public void updateScheduleItem(ScheduleItem newItem, String day) {
+
+        SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
+
+        String query = "UPDATE " + TABLE_SCHEDULE + " SET " + NAME_COL + " = '" + newItem.getName() + "' WHERE " + START_TIME_COL +  " = '" + newItem.getStart()+"' AND " + END_TIME_COL + " = '" + newItem.getEnd() + "'";
+
+        db.execSQL(query);
     }
 
     public ArrayList getScheduleData(String day){

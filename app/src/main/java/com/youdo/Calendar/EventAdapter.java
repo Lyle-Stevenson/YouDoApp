@@ -30,14 +30,10 @@ class EventAdapter extends ArrayAdapter<Event>{
         String name = getItem(position).getName();
         TextView eventName = (TextView) customView.findViewById(R.id.eventName);
 
-        String desc = getItem(position).getDescription();
-        TextView eventDesc = (TextView) customView.findViewById(R.id.eventDescription);
-
         String time = getItem(position).getTime();
         TextView eventTime = (TextView) customView.findViewById(R.id.eventTime);
 
         eventName.setText(name);
-        eventDesc.setText(desc);
         eventTime.setText(time);
 
         return customView;

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.youdo.Calendar.AddEventActivity;
 import com.youdo.Calendar.CalendarActivity;
@@ -45,7 +46,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         schedList = (ListView)findViewById(R.id.schedView);
 
-        String day = days.getTabAt(days.getSelectedTabPosition()).getText().toString();
+        String day = "Mon";
 
         Button buttonHome = findViewById(R.id.buttonHome);
         Button footerCalendar = findViewById(R.id.footerCalendar);
@@ -89,17 +90,6 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton addSched = findViewById(R.id.buttonAddSched);
-        addSched.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int pos = days.getSelectedTabPosition();
-                Intent addScheduleItem = new Intent(ScheduleActivity.this, AddToScheduleActivity.class);
-                addScheduleItem.putExtra("Day", days.getTabAt(pos).getText().toString()); //Passes the current day seleceted data in the intent to add schedule activity.
-                startActivity(addScheduleItem);
-            }
-        });
-
         days.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -118,6 +108,15 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
 
+        if(database.getScheduleData("Mon").isEmpty()) {
+            schedTemplate("Mon");
+            schedTemplate("Tue");
+            schedTemplate("Wed");
+            schedTemplate("Thu");
+            schedTemplate("Fri");
+            schedTemplate("Sat");
+            schedTemplate("Sun");
+        }
         populateListView(day);
     }
 
@@ -170,4 +169,70 @@ public class ScheduleActivity extends AppCompatActivity {
         return  super.onOptionsItemSelected(item);
     }
 
+    public void addSchedButtonClicked(View view){
+        View parent = (View)view.getParent();
+        TextView schedStart = (TextView)parent.findViewById(R.id.schedStartTime);
+        TextView schedEnd = (TextView)parent.findViewById(R.id.schedEndTime);
+
+        int pos = days.getSelectedTabPosition();
+        Intent addScheduleItem = new Intent(ScheduleActivity.this, AddToScheduleActivity.class);
+        addScheduleItem.putExtra("Day", days.getTabAt(pos).getText().toString()); //Passes the current day seleceted data in the intent to add schedule activity.
+        addScheduleItem.putExtra("Start", schedStart.getText().toString());
+        addScheduleItem.putExtra("End", schedEnd.getText().toString());
+        Log.d("schedtime", "Time" + schedStart.getText().toString() + " " + schedEnd.getText().toString());
+        startActivity(addScheduleItem);
+
+    }
+
+    public void schedTemplate(String day){
+
+        ScheduleItem placeHolder = new ScheduleItem("Free","09:00","09:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","09:30","10:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","10:00","10:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","10:30","11:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","11:00","11:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","11:30","12:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","12:00","12:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","12:30","13:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","13:00","13:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","13:30","14:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","14:00","14:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","14:30","15:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","15:00","15:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","15:30","16:00");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","16:00","16:30");
+        database.addScheduleItem(placeHolder, day);
+
+        placeHolder = new ScheduleItem("Free","16:30","17:00");
+        database.addScheduleItem(placeHolder, day);
+
+    }
 }

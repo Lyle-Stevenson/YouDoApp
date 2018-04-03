@@ -151,12 +151,6 @@ public class AddEventActivity extends AppCompatActivity {
         String name = editName.getText().toString();
 
         //adds reference to the text box on activity
-        editDescription = (EditText) findViewById(R.id.editEventDescription);
-
-        //Returns the name to the text in the box
-        String description = editDescription.getText().toString();
-
-        //adds reference to the text box on activity
         editDate = (EditText) findViewById(R.id.editEventDate);
 
         //Returns the name to the text in the box
@@ -168,7 +162,7 @@ public class AddEventActivity extends AppCompatActivity {
         //Returns the name to the text in the box
         String time = editTime.getText().toString();
 
-        Event newEvent = new Event(name, description, date, time);
+        Event newEvent = new Event(name, date, time);
 
         database.addEvent(newEvent);
 
@@ -187,31 +181,12 @@ public class AddEventActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         intent.putExtra("Name", event.getName());
-        intent.putExtra("Desc", event.getDescription());
         intent.putExtra("Id", id);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),id,intent,0);
 
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-
-        Toast.makeText(this, "Alarm is set: " + id, Toast.LENGTH_SHORT).show();
     }
-
-  /*  public void initChannels(Context context) {
-        if (Build.VERSION.SDK_INT < 26) {
-            return;
-        }
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel channel = new NotificationChannel("default",
-                "NOTIFICATION",
-                NotificationManager.IMPORTANCE_DEFAULT);
-        channel.setDescription("Channel");
-        notificationManager.createNotificationChannel(channel);
-    }
-
-    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "default");*/
-
 
 }

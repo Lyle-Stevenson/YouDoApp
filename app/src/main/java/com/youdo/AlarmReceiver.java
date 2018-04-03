@@ -23,9 +23,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context,"1")
-                .setSmallIcon(R.drawable.flights)
-                .setContentTitle(intent.getStringExtra("Name"))
-                .setContentText(intent.getStringExtra("Desc"))
+                .setSmallIcon(R.drawable.icon_youdo)
+                .setContentTitle("You:Do")
+                .setContentText(intent.getStringExtra("Name"))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
@@ -38,7 +38,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id, mBuilder.build());
-        Toast.makeText(context, "Alarm recieved: " + intent.getStringExtra("Name"), Toast.LENGTH_SHORT).show();
     }
 
 }

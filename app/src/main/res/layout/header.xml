@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +22,7 @@
 
         <Button
             android:id="@+id/buttonHome"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignBaseline="@+id/buttonCalendar"
             android:layout_alignBottom="@+id/buttonCalendar"
@@ -40,8 +40,9 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:typeface="monospace"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="2dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/logoHeader"
@@ -49,11 +50,11 @@
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             android:elevation="48dp"
             app:layout_constraintStart_toStartOf="@+id/buttonHome"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_youdo" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

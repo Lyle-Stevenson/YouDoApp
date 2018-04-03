@@ -3,6 +3,7 @@ package com.youdo.TodoList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -126,7 +127,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
         Task newTask = null;
 
-        if(newCat == null) {
+        Log.d("Cat", "CAT:" + newCat.isEmpty());
+        if(newCat.isEmpty()) {
             newTask = new Task(name, selectedCategory, dateString);
         }else{
             newTask = new Task(name, newCat, dateString);

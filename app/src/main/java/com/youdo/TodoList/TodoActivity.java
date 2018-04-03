@@ -147,7 +147,7 @@ public class TodoActivity extends AppCompatActivity {
 
     public void deleteTaskButtonClicked(View view){
         View parent = (View)view.getParent();
-        TextView taskName = (TextView)findViewById(R.id.todoName);
+        TextView taskName = (TextView)parent.findViewById(R.id.todoName);
         String task = String.valueOf(taskName.getText());
         database.deleteTodo(task);
         populateListView();
