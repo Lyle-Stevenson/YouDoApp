@@ -14,14 +14,8 @@ import com.youdo.ImportantDates.Date;
 import com.youdo.Schedule.ScheduleItem;
 import com.youdo.TodoList.Task;
 
-/**
- * Created by Lyle on 12/02/2018.
- * Fixed by Callum on Valentines day. (I know, how romantic)
- */
-
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    private static final String TAG = "DatabaseHelper";
     //Databasename
     private static final String DATABASE_NAME = "YouDo";
 
@@ -43,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DAY_COL = "day";
     private static final String TASK_CAT_COL = "category";
 
-    // To do table create statement
+    //Create table statements
     private static final String CREATE_TABLE_TODO = "CREATE TABLE "
             + TABLE_TODO + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
             + " TEXT," + TASK_CAT_COL + " TEXT," + DATE_COL + " DATETIME" + ")";
@@ -52,17 +46,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             + TABLE_GOALS + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
             + " TEXT" + ")";
 
-    // Event table create statement
     private static final String CREATE_TABLE_EVENTS = "CREATE TABLE "
             + TABLE_EVENT+ "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
             + " TEXT," + DATE_COL + " TEXT," + TIME_COL + " TEXT" + ")";
 
-    // Event table create statement
     private static final String CREATE_TABLE_DATES = "CREATE TABLE "
             + TABLE_DATES+ "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
             + " TEXT," + DATE_COL + " TEXT" + ")";
 
-    // com.youdo.Schedule table create statement
     private static final String CREATE_TABLE_SCHEDULE = "CREATE TABLE "
             + TABLE_SCHEDULE + "(" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME_COL
             + " TEXT," + DAY_COL + " TEXT," + START_TIME_COL + " TEXT," + END_TIME_COL + " TEXT" + ")";
@@ -93,50 +84,98 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     //Create a to do task
-    public boolean addToDo(Task todo) {
+    public void addToDo(Task todo) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
+        //Put the values from the passed in task into a values object that database understands.
         ContentValues values = new ContentValues();
         values.put(NAME_COL, todo.getName());
         values.put(TASK_CAT_COL,todo.getCat());
         values.put(DATE_COL, todo.getDate());
-        // insert row
-        long result = db.insert(TABLE_TODO, null, values);
 
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        db.insert(TABLE_TODO, null, values);
     }
 
-    //Create a to do task
+    //Delete a to do task
     public void deleteTodo(String todo) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
+        //Set up delete query
         String query = "DELETE FROM " + TABLE_TODO + " WHERE " + NAME_COL + " = '" + todo +"'";
 
-        // insert row
+        //execute delete query
         db.execSQL(query);
     }
 
-    //Create a to do task
-    public boolean addGoal(String goal) {
+    //Fetch all to do task from database
+    public ArrayList getTaskData(String selectedFilter){
+        SQLiteDatabase db = this.getReadableDatabase(); // Get readable version of database
+
+        String selectQuery;
+
+        if(selectedFilter == ""){ //If the selected filer is black dont use filtered search
+            selectQuery = "SELECT  * FROM " + TABLE_TODO;
+        }else{ // If a filter was selected on fetch filtered category objects.
+            selectQuery = "SELECT  * FROM " + TABLE_TODO + " WHERE category ='" + selectedFilter +"'";
+        }
+
+        //Put fetched rows in cursor object
+        Cursor data = db.rawQuery(selectQuery,null);
+
+        //Array list to hold all task.
+        ArrayList<Task> tasksList = new ArrayList<>();
+        while(data.moveToNext()){ // Whilst there is a new row to look at
+            //Convert row data into a task object.
+            Task task = new Task();
+            task.setName(data.getString(data.getColumnIndex("name")));
+            task.setCat(data.getString(data.getColumnIndex("category")));
+            task.setDate(data.getString(data.getColumnIndex("date")));
+            tasksList.add(task);
+        }
+
+        //Close connections to the database.
+        data.close();
+        db.close();
+
+        return tasksList;
+    }
+
+    //Fetch what to do list categories currently exist to populate the dropdown with.
+    public ArrayList getCat(){
+        SQLiteDatabase db = this.getReadableDatabase(); //Get readable version of db
+
+        //Query to fetch all unique category names.
+        String selectQuery = "SELECT DISTINCT " +  TASK_CAT_COL + " FROM " + TABLE_TODO;
+
+        //Set up cursor object to hold the fetched rows.
+        Cursor data = db.rawQuery(selectQuery,null);
+
+        //Array list to hold categories
+        ArrayList<String> catList = new ArrayList<>();
+        while(data.moveToNext()){ //Whilst there is a new row to be read.
+            //Convert the cursor object into a string object.
+            catList.add(data.getString(data.getColumnIndex("category")));
+        }
+
+        //Close database connections
+        data.close();
+        db.close();
+
+        return catList;
+    }
+
+    //Create a goal
+    public void addGoal(String goal) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
+        //Put the values from the passed in into a values object that database understands.
         ContentValues values = new ContentValues();
         values.put(NAME_COL, goal);
         // insert row
-        long result = db.insert(TABLE_GOALS, null, values);
-
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        db.insert(TABLE_GOALS, null, values);
     }
 
-    //Create a to do task
+    //Delete a goal
     public void deleteGoals(String goal) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
@@ -146,42 +185,42 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(query);
     }
 
+    //Fetch all goals in database
     public ArrayList getGoalData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery;
+        SQLiteDatabase db = this.getReadableDatabase(); //Get readable version of the database
 
-        selectQuery = "SELECT  * FROM " + TABLE_GOALS;
+        //Set up query string
+        String selectQuery = "SELECT  * FROM " + TABLE_GOALS;
 
+        //Add fetched rows to a cursor object
         Cursor data = db.rawQuery(selectQuery,null);
 
-        //Get tasks from the database
+        //Array to store the goals in
         ArrayList<String> goalList = new ArrayList<>();
-        while(data.moveToNext()){
-            goalList.add(data.getString(data.getColumnIndex("name")));
+        while(data.moveToNext()){ //While the database has a new rwo to read.
+            goalList.add(data.getString(data.getColumnIndex("name"))); //Convert data from cursor object to string.
         }
+        //Close database connection
         data.close();
         db.close();
+
         return goalList;
     }
 
-    //Create a to do task
-    public boolean addDate(Date date) {
+    //Add a date to the database
+    public void addDate(Date date) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
+        //Put the values passed in into a values object that database understands.
         ContentValues values = new ContentValues();
         values.put(NAME_COL, date.getName());
         values.put(DATE_COL,date.getDate());
-        // insert row
-        long result = db.insert(TABLE_DATES, null, values);
 
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        //Insert new row into database
+        db.insert(TABLE_DATES, null, values);
     }
 
-    //Create a to do task
+    //Delete dates from the database.
     public void deleteDate(Date date) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
@@ -191,115 +230,81 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(query);
     }
 
+    //Fetch all dates from database.
     public ArrayList getDateData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery;
+        SQLiteDatabase db = this.getReadableDatabase(); // Get readable reference to databsase.
 
-        selectQuery = "SELECT  * FROM " + TABLE_DATES;
+        //Set up the query
+        String selectQuery = "SELECT  * FROM " + TABLE_DATES;
 
+        //Transfer fetch rows into a cursor object
         Cursor data = db.rawQuery(selectQuery,null);
 
-        //Get tasks from the database
+        //Set up array list to hold dates.
         ArrayList<Date> dateList = new ArrayList<>();
-        while(data.moveToNext()){
+        while(data.moveToNext()){ //Whilst a row is still to be read
+            //Transfer row data into a date object.
             Date date = new Date();
             date.setName(data.getString(data.getColumnIndex("name")));
             date.setDate(data.getString(data.getColumnIndex("date")));
             dateList.add(date);
         }
+
+        //Close database connections
         data.close();
         db.close();
+
         return dateList;
     }
 
-    public boolean addEvent(Event event) {
+    //Add event to the database
+    public void addEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
+        //Put the values passed into a values object that database understands.
         ContentValues values = new ContentValues();
         values.put(NAME_COL, event.getName());
         values.put(DATE_COL, event.getDate());
         values.put(TIME_COL, event.getTime());
 
         // insert row
-        long result = db.insert(TABLE_EVENT, null, values);
-
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        db.insert(TABLE_EVENT, null, values);
     }
 
-    public ArrayList getTaskData(String selectedFilter){
-        SQLiteDatabase db = this.getReadableDatabase();
-    String selectQuery;
-
-        if(selectedFilter == ""){
-        selectQuery = "SELECT  * FROM " + TABLE_TODO;
-        }else{
-            selectQuery = "SELECT  * FROM " + TABLE_TODO + " WHERE category ='" + selectedFilter +"'";
-        }
-
-        Cursor data = db.rawQuery(selectQuery,null);
-
-        //Get tasks from the database
-        ArrayList<Task> tasksList = new ArrayList<>();
-        while(data.moveToNext()){
-            Task task = new Task();
-            task.setName(data.getString(data.getColumnIndex("name")));
-            task.setCat(data.getString(data.getColumnIndex("category")));
-            task.setDate(data.getString(data.getColumnIndex("date")));
-            tasksList.add(task);
-        }
-        data.close();
-        db.close();
-        return tasksList;
-    }
-
-    public ArrayList getCat(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String selectQuery = "SELECT DISTINCT " +  TASK_CAT_COL + " FROM " + TABLE_TODO;
-
-
-        Cursor data = db.rawQuery(selectQuery,null);
-
-        //Get tasks from the database
-        ArrayList<String> catList = new ArrayList<>();
-        while(data.moveToNext()){
-            catList.add(data.getString(data.getColumnIndex("category")));
-        }
-        data.close();
-        db.close();
-        return catList;
-    }
-
+    //Fetch all events for a given date.
     public ArrayList getEventData(String date){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase(); //Readable version of database.
 
+        //Query to fetch events on a given date.
         String selectQuery = "SELECT * FROM " + TABLE_EVENT + " WHERE date = '" + date +"'";
-        Log.d("com/youdo/Calendar",selectQuery);
+
+        //Cursor to hold queried data.
         Cursor data = db.rawQuery(selectQuery,null);
 
-        //Get tasks from the database
+        //Array list to hold events
         ArrayList<Event> eventList = new ArrayList<>();
 
-        while(data.moveToNext()){
+        while(data.moveToNext()){//Whilst new event is to be read in.
+            //Convert cursor data into event objects.
             Event event = new Event();
             event.setName(data.getString(data.getColumnIndex("name")));
             event.setTime(data.getString(data.getColumnIndex("time")));
             event.setDate(data.getString(data.getColumnIndex("date")));
             eventList.add(event);
         }
+
+        //Close database connections.
         data.close();
         db.close();
+
         return eventList;
     }
 
-    public boolean addScheduleItem(ScheduleItem newItem, String day) {
-
+    //Add schedule items to database on given day.
+    public void addScheduleItem(ScheduleItem newItem, String day) {
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
+        //Put the values passed in into a values object that database understands.
         ContentValues values = new ContentValues();
         values.put(NAME_COL, newItem.getName());
         values.put(START_TIME_COL, newItem.getStart());
@@ -307,43 +312,50 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(DAY_COL, day);
 
         // insert row
-        long result = db.insert(TABLE_SCHEDULE, null, values);
-
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        db.insert(TABLE_SCHEDULE, null, values);
     }
 
+    //Update current schedule items with new tasks.
     public void updateScheduleItem(ScheduleItem newItem, String day) {
 
         SQLiteDatabase db = this.getWritableDatabase(); //Gets a writeable reference to the db
 
-        String query = "UPDATE " + TABLE_SCHEDULE + " SET " + NAME_COL + " = '" + newItem.getName() + "' WHERE " + START_TIME_COL +  " = '" + newItem.getStart()+"' AND " + END_TIME_COL + " = '" + newItem.getEnd() + "'";
+        //Query to update selected schedule timeslot.
+        String query = "UPDATE " + TABLE_SCHEDULE + " SET " + NAME_COL + " = '" + newItem.getName() +
+                "' WHERE " + START_TIME_COL +  " = '" + newItem.getStart()+
+                "' AND " + END_TIME_COL + " = '" + newItem.getEnd() +
+                "' AND " + DAY_COL + " = '" + day +
+                "'";
 
         db.execSQL(query);
     }
 
+    //Fetches all schedule data.
     public ArrayList getScheduleData(String day){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase(); //REadable version of database.
 
+        //Set up query to fetch all schedule data on given day.
         String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE + " WHERE day = '" + day +"'";
-        Log.d("Query", selectQuery);
+
+        //Cursor object to hold all queried rows.
         Cursor data = db.rawQuery(selectQuery,null);
-        Log.d("Query", data.toString());
-        //Get tasks from the database
+
+        //Arraylist to hold scheduled item.
         ArrayList<ScheduleItem> itemList = new ArrayList<>();
 
         while(data.moveToNext()){
+            //Convert cursor data to shedule item objects.
             ScheduleItem item = new ScheduleItem();
             item.setName(data.getString(data.getColumnIndex("name")));
             item.setStart(data.getString(data.getColumnIndex("start_time")));
             item.setEnd(data.getString(data.getColumnIndex("end_time")));
             itemList.add(item);
         }
+
+        //Close database connections
         data.close();
         db.close();
+
         return itemList;
     }
 }

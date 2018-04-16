@@ -28,7 +28,6 @@ public class DatesFragment extends Fragment {
     ListView dateList;
     ArrayAdapter<Date> mAdapter;
 
-    private static final String TAG = "DatesFragment";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class DatesFragment extends Fragment {
 
         database = new DatabaseHelper(getContext());
 
+        //If the add date button is cliekd user is taken to add date activity.
         FloatingActionButton addDate = view.findViewById(R.id.buttonAddDate);
         addDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +52,13 @@ public class DatesFragment extends Fragment {
         return view;
     }
 
+    //Populates the list view with dates
     private void populateListView() {
 
+        //fetches all important dates from the database and adds them to the  array list.
         ArrayList<Date> dbList = database.getDateData();
+
+        //Displays dates oin the list view using the adapter.
         if(mAdapter==null) {
             mAdapter = new DateAdapter(getContext(),dbList);
             dateList.setAdapter(mAdapter);

@@ -39,7 +39,6 @@ public class ImpGoalsActivity extends AppCompatActivity {
     private DatabaseHelper database;
     private ViewPager mViewPager;
     ListView goalList;
-    ArrayAdapter<String> goalAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class ImpGoalsActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
 
+        //Sets up the tabs/
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
@@ -64,78 +64,44 @@ public class ImpGoalsActivity extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
+        //Header and footer intents.
         buttonHome.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent home = new Intent(ImpGoalsActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(ImpGoalsActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent todo = new Intent(ImpGoalsActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent imp = new Intent(ImpGoalsActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(ImpGoalsActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
         });
-        //populateGoalView();
     }
 
+    //Sets up the tabs for each fragment.
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new GoalsFragment(),"Goals");
         adapter.addFragment(new DatesFragment(),"Important dates");
-
         viewPager.setAdapter(adapter);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_todo,menu);
-        return true;
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        //Returns the selected action from action bar.
-        int id = item.getItemId();
-        //If the add task item is selected
-
-        if(id == R.id.homeButton){
-            //Creates intent to start add task activity.
-            Intent home = new Intent(ImpGoalsActivity.this, MainActivity.class);
-            startActivity(home);
-        }
-
-        return  super.onOptionsItemSelected(item);
     }
 }

@@ -1,10 +1,9 @@
 package com.youdo.Schedule;
 
-/**
- * Created by Lyle on 19/02/2018.
- */
 
-//com.youdo.Schedule item object
+
+//Schedule item object
+
 public class ScheduleItem {
     //Variables a schdule item object should have
     private String name;

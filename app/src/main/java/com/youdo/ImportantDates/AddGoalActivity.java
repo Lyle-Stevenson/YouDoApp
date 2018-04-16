@@ -35,7 +35,7 @@ public class AddGoalActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_goal);
 
-        database = new DatabaseHelper(this);
+        database = new DatabaseHelper(this); //db reference
 
         Button buttonHome = findViewById(R.id.buttonHome);
         Button footerCalendar = findViewById(R.id.footerCalendar);
@@ -43,37 +43,33 @@ public class AddGoalActivity  extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
+        //Header and footer intents.
         buttonHome.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent home = new Intent(AddGoalActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(AddGoalActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent todo = new Intent(AddGoalActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent imp = new Intent(AddGoalActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(AddGoalActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
@@ -88,9 +84,10 @@ public class AddGoalActivity  extends AppCompatActivity {
         //Returns the name to the text in the box
         String name = editName.getText().toString();
 
+        //Adds new goal to database.
         database.addGoal(name);
 
-        Log.d("Goals" , "Goal added: " + name);
+        //Returns user to the important goals activity.
         Intent goals = new Intent(AddGoalActivity.this, ImpGoalsActivity.class);
         startActivity(goals);
     }

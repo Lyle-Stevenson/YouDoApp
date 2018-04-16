@@ -12,9 +12,7 @@ import com.youdo.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Lyle on 20/03/2018.
- */
+//Adapter for the listview. Works as a middle man to transfer data from objects onto the list.
 
 class ScheduleAdapter extends ArrayAdapter<ScheduleItem>{
 
@@ -24,9 +22,12 @@ class ScheduleAdapter extends ArrayAdapter<ScheduleItem>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+
+        //Gets row layout to be used in listview.
         LayoutInflater scheduleInflater = LayoutInflater.from(getContext());
         View customView = scheduleInflater.inflate(R.layout.schedule_row,parent,false);
 
+        //Adds the shedule items details to row.
         String name = getItem(position).getName();
         TextView schedName = (TextView) customView.findViewById(R.id.schedName);
 

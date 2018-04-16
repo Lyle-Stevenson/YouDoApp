@@ -48,37 +48,33 @@ public class AddDateActivity extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
+        //Header and footer intents.
         buttonHome.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent home = new Intent(AddDateActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(AddDateActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent todo = new Intent(AddDateActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent imp = new Intent(AddDateActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(AddDateActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
@@ -93,18 +89,16 @@ public class AddDateActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) { //Creates a date picker dialog with at current date.
+                editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year); //Sets the selected date in the text box.
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
 
+    //When the new important date is added.
     public void addImpDateButtonClicked(View view) {
 
         //adds reference to the text box on activity
@@ -116,13 +110,16 @@ public class AddDateActivity extends AppCompatActivity {
         //adds reference to the text box on activity
         editDate = (EditText) findViewById(R.id.editDateDate);
 
-        //Returns the name to the text in the box
+        //Returns the date to the text in the box
         String date = editDate.getText().toString();
 
+        //Creates a new date object using new data.
         Date newDate = new Date(name, date);
 
+        //Adds date to database.
         database.addDate(newDate);
 
+        //Creates and intent to take user back to the previous activity.
         Intent Date = new Intent(AddDateActivity.this, ImpGoalsActivity.class);
         startActivity(Date);
     }

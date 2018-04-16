@@ -1,7 +1,7 @@
 package com.youdo.Calendar;
 
 /**
- * Created by Abigail on 15/02/2018.
+ * Event object
  */
 
 public class Event {

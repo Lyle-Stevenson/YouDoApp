@@ -1,7 +1,7 @@
 package com.youdo.ImportantDates;
 
 /**
- * Created by Lyle on 23/03/2018.
+ * Date object.
  */
 
 public class Date {

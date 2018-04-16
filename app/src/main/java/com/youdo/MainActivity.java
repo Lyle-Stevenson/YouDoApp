@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonCalendar = findViewById(R.id.buttonCalendar);
         Button buttonTodo = findViewById(R.id.buttonTodo);
         Button buttonDates = findViewById(R.id.buttonDates);
+        Button buttonSched = findViewById(R.id.buttonSchedule);
 
         Button buttonHome = findViewById(R.id.buttonHome);
         Button footerCalendar = findViewById(R.id.footerCalendar);
@@ -31,13 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
-        buttonHome.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
-                Intent home = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(home);
-            }
-        });
+        //Footer buttons intents
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 //Creates and intent to change activity from main to calendar
@@ -47,21 +42,21 @@ public class MainActivity extends AppCompatActivity {
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
+                //Creates and intent to change activity from main to to do
                 Intent todo = new Intent(MainActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
+                //Creates and intent to change activity from main to important dates
                 Intent imp = new Intent(MainActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
+                //Creates and intent to change activity from main to scheduler
                 Intent sched = new Intent(MainActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
@@ -85,20 +80,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Function to listen for to do button being clicked
+        //Function to listen for importantdates button being clicked
         buttonDates.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to to do
+                //Creates and intent to change activity from main to importantdates
                 Intent dates = new Intent(MainActivity.this, ImpGoalsActivity.class);
                 startActivity(dates);
             }
         });
 
-
-    }
-
-    public void buttonSchedule(View view) {
-        Intent schedule = new Intent(MainActivity.this, ScheduleActivity.class);
-        startActivity(schedule);
+        //Function to listen for scheduler button being clicked
+        buttonSched.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //Creates and intent to change activity from main to scheduler
+                Intent schedule = new Intent(MainActivity.this, ScheduleActivity.class);
+                startActivity(schedule);
+            }
+        });
     }
 }

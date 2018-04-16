@@ -30,9 +30,8 @@ import java.util.Calendar;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    private DatabaseHelper database; //referes to database
+    private DatabaseHelper database;
     EditText editName;
-    EditText editDescription;
     Button buttonDate, buttonTime;
     EditText editDate, editTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -44,6 +43,7 @@ public class AddEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
         //Gets reference to the database
         database = new DatabaseHelper(this);
 
@@ -58,37 +58,33 @@ public class AddEventActivity extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
+        //Header and footer intents.
         buttonHome.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent home = new Intent(AddEventActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(AddEventActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent todo = new Intent(AddEventActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent imp = new Intent(AddEventActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(AddEventActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
@@ -96,6 +92,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     }
 
+    //When user clicks button to set events dats.
     public void setEventDateClicked(View view){
         // Get Current Date
         final Calendar c = Calendar.getInstance();
@@ -103,20 +100,18 @@ public class AddEventActivity extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                        editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                        calendarReminder.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) { //Creates datepicked on current date.
+                        editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year); //Sets text of date to chosen date.
+                        calendarReminder.set(Calendar.DAY_OF_MONTH,dayOfMonth); //Stores chosen date for the reminder.
                         calendarReminder.set(Calendar.MONTH,monthOfYear);
-
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
 
+    //When the event time is set.
     public void setEventTimeClicked(View view){
 
         // Get Current Time
@@ -124,24 +119,22 @@ public class AddEventActivity extends AppCompatActivity {
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
-        // Launch Time Picker Dialog
+        // Launch Time Picker Dialog at current time
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
 
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-
-                        editTime.setText(hourOfDay + ":" + minute);
-                        calendarReminder.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        editTime.setText(hourOfDay + ":" + minute); //Sets text to current picked time
+                        calendarReminder.set(Calendar.HOUR_OF_DAY,hourOfDay); //Stores time for the reminder.
                         calendarReminder.set(Calendar.MINUTE,minute);
-
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
     }
-    //When add event buttion is clicked
 
+    //When add event buttion is clicked
     public void addEventButtonClicked(View view) {
 
         //adds reference to the text box on activity
@@ -162,31 +155,35 @@ public class AddEventActivity extends AppCompatActivity {
         //Returns the name to the text in the box
         String time = editTime.getText().toString();
 
+        //Creates event object with new data.
         Event newEvent = new Event(name, date, time);
 
+        //Adds event to the database.
         database.addEvent(newEvent);
 
+        //Sets an alarm for the events time and date.
         setAlarm(calendarReminder.getTimeInMillis(), newEvent);
 
+        //takes user back to claendar.
         Intent Calendar = new Intent(AddEventActivity.this, CalendarActivity.class);
         startActivity(Calendar);
     }
 
     private void setAlarm(long timeInMillis,Event event){
 
-        Log.d("Time", "hi" + timeInMillis);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        int id = (int) System.currentTimeMillis();
+        int id = (int) System.currentTimeMillis(); //Gives alarm id via clock time so the ids are unique.
 
+        //Passes the alarms even name and id in an intent.
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         intent.putExtra("Name", event.getName());
         intent.putExtra("Id", id);
 
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),id,intent,0);
 
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent); //Sets the alarm.
     }
 
 }

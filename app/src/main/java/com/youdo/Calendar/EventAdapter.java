@@ -12,9 +12,7 @@ import com.youdo.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Lyle on 20/03/2018.
- */
+//Adapter for the listview. Works as a middle man to transfer data from objects onto the list.
 
 class EventAdapter extends ArrayAdapter<Event>{
 
@@ -24,9 +22,11 @@ class EventAdapter extends ArrayAdapter<Event>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        //Gets row layout to be used in listview.
         LayoutInflater eventInflater = LayoutInflater.from(getContext());
         View customView = eventInflater.inflate(R.layout.event_row,parent,false);
 
+        //Adds the event variables to the view.
         String name = getItem(position).getName();
         TextView eventName = (TextView) customView.findViewById(R.id.eventName);
 

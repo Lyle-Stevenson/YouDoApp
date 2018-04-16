@@ -40,9 +40,9 @@ CalendarActivity extends AppCompatActivity {
 
         database = new DatabaseHelper(this);//Database reference
 
-        eventList = (ListView) findViewById(R.id.eventView);
+        eventList = (ListView) findViewById(R.id.eventView); //Listview reference
 
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView = (CalendarView) findViewById(R.id.calendarView); //Calendarview reference
 
         Button buttonHome = findViewById(R.id.buttonHome);
         Button footerCalendar = findViewById(R.id.footerCalendar);
@@ -50,51 +50,49 @@ CalendarActivity extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
+        //Header and footer intents.
         buttonHome.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent home = new Intent(CalendarActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(CalendarActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent todo = new Intent(CalendarActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent imp = new Intent(CalendarActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(CalendarActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
         });
+
 
         //Checks if a new day has been selected on the calendar
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 String date = day + "/" + (month+1) + "/" + year; //Gets a string format of the date selected to pass to db
-                populateListView(date); //poplates list with events from current day
+                populateListView(date); //populates list with events from current selected day
             }
         });
 
+        //Listens for the add event button being clicked. If it is takes user to add event activity.
         FloatingActionButton addEvent = findViewById(R.id.buttonAddEvent);
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +103,13 @@ CalendarActivity extends AppCompatActivity {
         });
     }
 
+    //Populates list view with events from selected day.
     private void populateListView(String findDate) {
 
+        //Gets all events from a selected day and stores them in a database.
         ArrayList<Event> dbList = database.getEventData(findDate);
+
+        //Uses the adapter to displays the data within the array list onto the list view.
         if(mAdapter==null) {
             mAdapter = new EventAdapter(this,dbList);
             eventList.setAdapter(mAdapter);
@@ -117,38 +119,5 @@ CalendarActivity extends AppCompatActivity {
             mAdapter.notifyDataSetChanged();
         }
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_todo,menu);
-        return true;
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        //Returns the selected action from action bar.
-        int id = item.getItemId();
-        //If the add task item is selected
-        if(id == R.id.addTask){
-            //Creates intent to start add task activity.
-            Intent addEvent = new Intent(CalendarActivity.this, AddEventActivity.class);
-            startActivity(addEvent);
-        }
-
-        if(id == R.id.homeButton){
-            //Creates intent to start add task activity.
-            Intent home = new Intent(CalendarActivity.this, MainActivity.class);
-            startActivity(home);
-        }
-
-        return  super.onOptionsItemSelected(item);
     }
 }

@@ -12,9 +12,7 @@ import com.youdo.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Lyle on 20/03/2018.
- */
+//Adapter for the listview. Works as a middle man to transfere data from objects onto the list.
 
 class TaskAdapter extends ArrayAdapter<Task>{
 
@@ -24,13 +22,15 @@ class TaskAdapter extends ArrayAdapter<Task>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        //Gets row layout to be used in listview.
         LayoutInflater taskInflater = LayoutInflater.from(getContext());
         View customView = taskInflater.inflate(R.layout.task_row,parent,false);
 
+        //Gets and set the name of the task in the list.
         String name = getItem(position).getName();
         TextView taskName = (TextView) customView.findViewById(R.id.todoName);
-
         taskName.setText(name);
+
         return customView;
     }
 }

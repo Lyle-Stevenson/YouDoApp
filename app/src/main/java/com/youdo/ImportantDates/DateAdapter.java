@@ -13,9 +13,7 @@ import com.youdo.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Lyle on 23/03/2018.
- */
+//Adapter for the listview. Works as a middle man to transfer data from objects onto the list.
 
 public class DateAdapter extends ArrayAdapter<Date> {
 
@@ -25,9 +23,11 @@ public class DateAdapter extends ArrayAdapter<Date> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        //Gets row layout to be used in listview.
         LayoutInflater dateInflater = LayoutInflater.from(getContext());
         View customView = dateInflater.inflate(R.layout.date_row,parent,false);
 
+        //Adds the date variables to the view.
         String name = getItem(position).getName();
         TextView dateName = (TextView) customView.findViewById(R.id.dateName);
 

@@ -28,8 +28,6 @@ import java.util.ArrayList;
 
 public class TodoActivity extends AppCompatActivity {
 
-    //Change 1
-
     private DatabaseHelper database;
     ListView taskList;
     ArrayAdapter<Task> mAdapter;
@@ -40,17 +38,18 @@ public class TodoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
-        //Adds the toolbar to activity
 
+        //Create reference to database
         database = new DatabaseHelper(this);
 
+        //link list view to variable/
         taskList = (ListView) findViewById(R.id.todo_list);
 
         //Creates the dropdown menu for the filter
         categoryFilter= findViewById(R.id.filter_Drop_Down);
 
 
-        //fills drop down list with categories
+        //fills drop down list with categories fetched from database.
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(TodoActivity.this,
                 android.R.layout.simple_list_item_1, database.getCat());
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -62,42 +61,39 @@ public class TodoActivity extends AppCompatActivity {
         Button footerImp = findViewById(R.id.footerImp);
         Button footerSched = findViewById(R.id.footerSched);
 
+        //Header and footer intents.
         buttonHome.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent home = new Intent( TodoActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
         footerCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent calender = new Intent(TodoActivity.this, CalendarActivity.class);
                 startActivity(calender);
             }
         });
         footerTodo.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent todo = new Intent(TodoActivity.this, TodoActivity.class);
                 startActivity(todo);
             }
         });
         footerImp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent imp = new Intent(TodoActivity.this, ImpGoalsActivity.class);
                 startActivity(imp);
             }
         });
         footerSched.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                //Creates and intent to change activity from main to calendar
                 Intent sched = new Intent(TodoActivity.this, ScheduleActivity.class);
                 startActivity(sched);
             }
         });
 
+        //Button to take user to add goal page.
         FloatingActionButton addGoal = findViewById(R.id.buttonAddTask);
         addGoal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,33 +103,29 @@ public class TodoActivity extends AppCompatActivity {
             }
         });
 
+        //Listens for the category filter being changed.
         categoryFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            //makes the choice in the dropdown menu = selectedFilter
+            //if a new filter is selected.
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedFilter = adapterView.getSelectedItem().toString();
-                Log.d("lol",selectedFilter);
-                populateListView();
-                //fixed by benjamin after Callum spent 15 hours trying to work out this stupid ass
-                    //line of shitty code that took benjamin 30seconds to realise how retarded i was being
-
+                selectedFilter = adapterView.getSelectedItem().toString(); //Change variable to the current selected filter.
+                populateListView(); //Populate view with new filter.
             }
 
             @Override
             //impossible to not select
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-        populateListView();
 
-
+        populateListView();//Call populate list view.
     }
 
+    //Populates the task list view with current filter.
     private void populateListView() {
 
+        //Fetched all task from the database
         ArrayList<Task> dbList = database.getTaskData(selectedFilter);
+        //displayes new set of task data fetched on the list view.
         if(mAdapter==null) {
            mAdapter = new TaskAdapter(this,dbList);
            taskList.setAdapter(mAdapter);
@@ -145,45 +137,16 @@ public class TodoActivity extends AppCompatActivity {
 
     }
 
+    //If the delete button for a task is clicked.
     public void deleteTaskButtonClicked(View view){
         View parent = (View)view.getParent();
+        //Stores the task name of deleted task.
         TextView taskName = (TextView)parent.findViewById(R.id.todoName);
         String task = String.valueOf(taskName.getText());
+        //Calls delete function in database
         database.deleteTodo(task);
+        //repopulated the listview without the deleted item.
         populateListView();
     }
-
-    @Override
-        public boolean onCreateOptionsMenu(Menu menu){
-            getMenuInflater().inflate(R.menu.menu_todo,menu);
-            return true;
-        }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item){
-            //Returns the selected action from action bar.
-            int id = item.getItemId();
-            //If the add task item is selected
-            if(id == R.id.addTask){
-                //Creates intent to start add task activity.
-                Intent addTask = new Intent(TodoActivity.this, AddTaskActivity.class);
-                startActivity(addTask);
-            }
-
-            if(id == R.id.homeButton){
-                //Creates intent to start add task activity.
-                Intent home = new Intent(TodoActivity.this, MainActivity.class);
-                startActivity(home);
-            }
-
-            return  super.onOptionsItemSelected(item);
-        }
 
 }

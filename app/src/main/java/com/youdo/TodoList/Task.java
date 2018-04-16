@@ -1,7 +1,6 @@
 package com.youdo.TodoList;
 
 /**
- * Created by Lyle on 18/01/2018.
  * Class for a to do list item
  */
 
@@ -34,10 +33,9 @@ public class Task {
         this.date = date;
     }
 
+    public void setCat(String category) {this.cat = category; }
 
-public void setCat(String category) {this.cat = category; }
-
-public String getCat() {return cat;}
+    public String getCat() {return cat;}
 
 }
 

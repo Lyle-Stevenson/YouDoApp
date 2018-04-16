@@ -13,9 +13,7 @@ import com.youdo.Schedule.ScheduleItem;
 
 import java.util.ArrayList;
 
-/**
- * Created by Lyle on 23/03/2018.
- */
+//Adapter for the listview. Works as a middle man to transfer data from objects onto the list.
 
 public class GoalAdapter extends ArrayAdapter<String> {
 
@@ -25,9 +23,11 @@ public class GoalAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        //Gets row layout to be used in listview.
         LayoutInflater goalInflater = LayoutInflater.from(getContext());
         View customView = goalInflater.inflate(R.layout.goal_row,parent,false);
 
+        //Adds the goal variables to the view.
         String name = getItem(position).toString();
         TextView goalName = (TextView) customView.findViewById(R.id.GoalName);
 
